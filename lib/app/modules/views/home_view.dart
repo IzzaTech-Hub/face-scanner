@@ -1,4 +1,5 @@
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,23 +47,25 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    height: SizeConfig.blockSizeVertical * 10,
-                    width: SizeConfig.blockSizeHorizontal * 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            SizeConfig.blockSizeHorizontal * 7),
-                        color: Colors.amber),
+                    height: SizeConfig.blockSizeVertical * 12,
+                    width: SizeConfig.blockSizeHorizontal * 20,
+                    decoration: BoxDecoration(),
+                    child: Image.asset(AppImages.face_beauty),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         height: SizeConfig.blockSizeVertical * 10,
-                        width: SizeConfig.blockSizeHorizontal * 10,
+                        width: SizeConfig.blockSizeHorizontal * 20,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.blockSizeHorizontal * 7),
-                            color: Colors.amber),
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 7),
+                        ),
+                        child: Image.asset(
+                          AppImages.analysis,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
                         "Face Beauty Analysis",
@@ -88,21 +91,38 @@ class HomeView extends StatelessWidget {
                   Get.toNamed(Routes.CELEBRITYLOOK);
                 },
                 child: scanner_modes(Color(0xFFD06810), Color(0xFFCA986F),
-                    "Looks like a", "Celebrity"),
+                    AppImages.celebrity_look, "Looks like a", "Celebrity"),
               ),
-              scanner_modes(Color.fromARGB(255, 71, 216, 76),
-                  Color.fromARGB(255, 113, 209, 111), "Facial Symmetery", ""),
+              scanner_modes(
+                  Color.fromARGB(255, 71, 216, 76),
+                  Color.fromARGB(255, 113, 209, 111),
+                  AppImages.facial_symmetry,
+                  "Facial Symmetery",
+                  ""),
               scanner_modes(
                   Color(0xFFBF04C3),
                   Color.fromARGB(255, 226, 134, 228),
+                  AppImages.beauty_score,
                   "Beauty Score",
                   "Showdown"),
-              scanner_modes(Color.fromARGB(255, 0, 201, 252),
-                  Color.fromARGB(255, 140, 223, 241), "Facial", "Resemblance"),
-              scanner_modes(Color(0xFF7E51FF),
-                  Color.fromARGB(255, 161, 134, 238), "Face Reading", ""),
-              scanner_modes(Color.fromARGB(255, 236, 240, 14),
-                  Color.fromARGB(255, 228, 240, 102), "Beauty Tips", ""),
+              scanner_modes(
+                  Color.fromARGB(255, 0, 201, 252),
+                  Color.fromARGB(255, 140, 223, 241),
+                  AppImages.face_resemblance,
+                  "Facial",
+                  "Resemblance"),
+              scanner_modes(
+                  Color(0xFF7E51FF),
+                  Color.fromARGB(255, 161, 134, 238),
+                  AppImages.face_reading,
+                  "Face Reading",
+                  ""),
+              scanner_modes(
+                  Color.fromARGB(255, 236, 240, 14),
+                  Color.fromARGB(255, 228, 240, 102),
+                  AppImages.beauty_tips,
+                  "Beauty Tips",
+                  ""),
             ],
           )
         ],
@@ -110,7 +130,8 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget scanner_modes(Color color1, Color color2, String text1, String text2) {
+  Widget scanner_modes(
+      Color color1, Color color2, String image, String text1, String text2) {
     return Container(
       margin: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 2),
       decoration: BoxDecoration(
@@ -126,7 +147,7 @@ class HomeView extends StatelessWidget {
           Container(
             height: SizeConfig.blockSizeVertical * 10,
             width: SizeConfig.blockSizeHorizontal * 20,
-            color: Colors.red,
+            child: Image.asset(image),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
