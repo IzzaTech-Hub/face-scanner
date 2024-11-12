@@ -156,22 +156,85 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
             ),
           ),
           verticalSpace(SizeConfig.blockSizeVertical * 5),
+          controller.isTrue.value
+              ? Container(
+                  height: SizeConfig.blockSizeVertical * 6.5,
+                  width: SizeConfig.blockSizeHorizontal * 70,
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.blockSizeHorizontal * 4)),
+                  child: Center(
+                    child: Text(
+                      "SEARCH",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 5,
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                )
+              : Container(),
+          verticalSpace(SizeConfig.blockSizeVertical * 2),
           Container(
-            height: SizeConfig.blockSizeVertical * 6.5,
+            height: SizeConfig.blockSizeVertical * 35,
             width: SizeConfig.blockSizeHorizontal * 70,
             decoration: BoxDecoration(
-                color: Colors.grey.shade400,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade400, // Shadow color
+                    spreadRadius: 2, // Spread radius
+                    blurRadius: 10, // Blur radius
+                    offset: Offset(0, 5), // Offset in x and y direction
+                  ),
+                ],
+                color: Colors.white,
                 borderRadius:
-                    BorderRadius.circular(SizeConfig.blockSizeHorizontal * 4)),
-            child: Center(
-              child: Text(
-                "SEARCH",
-                style: TextStyle(
-                    fontSize: SizeConfig.blockSizeHorizontal * 5,
-                    // fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
+                    BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
+            child: Column(
+              children: [
+                Container(
+                  margin:
+                      EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
+                  height: SizeConfig.blockSizeVertical * 18,
+                  width: SizeConfig.blockSizeHorizontal * 40,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(
+                          SizeConfig.blockSizeHorizontal * 4)),
+                ),
+                verticalSpace(SizeConfig.blockSizeVertical * 2),
+                bio_data("Name", "Devil"),
+                bio_data("Date of birth", "24-10-1986"),
+                bio_data("Country", "Canada"),
+                bio_data("Career", "Rapper Actor"),
+              ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget bio_data(String text1, String text2) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.blockSizeHorizontal * 4,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text1,
+            style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 4,
+                color: Colors.grey.shade600),
+          ),
+          Text(
+            text2,
+            style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 4,
+                fontWeight: FontWeight.bold),
           )
         ],
       ),

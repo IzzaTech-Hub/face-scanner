@@ -11,6 +11,8 @@ class CelebrityLookCtl extends GetxController {
   var selectedImage = Rx<File?>(null);
   final ImagePicker _picker = ImagePicker();
 
+  RxBool isTrue = false.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
