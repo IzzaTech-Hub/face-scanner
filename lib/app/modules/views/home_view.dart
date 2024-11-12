@@ -47,10 +47,12 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    height: SizeConfig.blockSizeVertical * 12,
-                    width: SizeConfig.blockSizeHorizontal * 20,
+                    alignment: Alignment.bottomCenter,
                     decoration: BoxDecoration(),
-                    child: Image.asset(AppImages.face_beauty),
+                    child: Image.asset(
+                      AppImages.face_beauty,
+                      scale: 2,
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,7 +66,7 @@ class HomeView extends StatelessWidget {
                         ),
                         child: Image.asset(
                           AppImages.analysis,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       Text(
