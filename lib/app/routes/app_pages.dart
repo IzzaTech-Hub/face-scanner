@@ -1,6 +1,8 @@
 import 'package:face_scanner/app/modules/binding/celebrity_look_binding.dart';
+import 'package:face_scanner/app/modules/binding/face_reading_binding.dart';
 import 'package:face_scanner/app/modules/binding/home_view_binding.dart';
 import 'package:face_scanner/app/modules/views/celebrity_look.dart';
+import 'package:face_scanner/app/modules/views/face_reading.dart';
 import 'package:face_scanner/app/modules/views/home_view.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +23,11 @@ class AppPages {
       name: _Paths.CELEBRITYLOOK,
       page: () => CelebrityLook(),
       binding: CelebrityLookBinding(),
+    ),
+    GetPage(
+      name: _Paths.FACEREADING,
+      page: () => FaceReading(),
+      binding: FaceReadingBinding(),
     ),
   ];
 }
