@@ -2,7 +2,7 @@ class CelebrityMatch {
   final String name;
   final String country;
   final String profession;
-  final double matchPercentage;
+  final String matchPercentage;
   final String description;
 
   CelebrityMatch({
@@ -19,7 +19,7 @@ class CelebrityMatch {
       name: json['name'] ?? '',
       country: json['country'] ?? '',
       profession: json['profession'] ?? '',
-      matchPercentage: (json['match_percentage'] as num).toDouble(),
+      matchPercentage: (json['match_percentage'] ?? '').toString(),
       description: json['description'] ?? '',
     );
   }

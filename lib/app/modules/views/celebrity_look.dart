@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/modules/controller/celebrity_look_ctl.dart';
 import 'package:face_scanner/app/utills/images.dart';
@@ -53,14 +54,18 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 GestureDetector(
-                                    onTap: () {
-                                      controller.pickImage(ImageSource.camera);
+                                    onTap: () async {
+                                      await controller
+                                          .pickImage(ImageSource.camera);
+                                      Get.back();
                                     },
                                     child: _buildImageOption(
                                         Icons.camera_alt, 'Camera')),
                                 GestureDetector(
-                                    onTap: () {
-                                      controller.pickImage(ImageSource.gallery);
+                                    onTap: () async {
+                                      await controller
+                                          .pickImage(ImageSource.gallery);
+                                      Get.back();
                                     },
                                     child: _buildImageOption(
                                         Icons.image, 'Gallery')),
@@ -108,20 +113,30 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                                 SizeConfig.blockSizeHorizontal * 2)),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: SizeConfig.blockSizeVertical * 1,
-                                  right: SizeConfig.blockSizeHorizontal * 2),
-                              child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Icon(
-                                    Icons.add_circle,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            Image.asset(
-                              AppImages.user,
-                              scale: 3.5,
+                            // Padding(
+                            //   padding: EdgeInsets.only(
+                            //       top: SizeConfig.blockSizeVertical * 1,
+                            //       right: SizeConfig.blockSizeHorizontal * 2),
+                            //   child: Align(
+                            //       alignment: Alignment.topRight,
+                            //       child: Icon(
+                            //         Icons.add_circle,
+                            //         color: Colors.grey,
+                            //       )),
+                            // ),
+                            Container(
+                              height: SizeConfig.blockSizeVertical * 25,
+                              width: SizeConfig.blockSizeHorizontal * 55,
+                              child: Obx(
+                                  () => controller.selectedImage.value != null
+                                      ? Image.file(
+                                          controller.selectedImage.value!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : Image.asset(
+                                          AppImages.user,
+                                          // scale: 3.5,
+                                        )),
                             ),
                           ],
                         ),
@@ -176,41 +191,68 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                 )
               : Container(),
           verticalSpace(SizeConfig.blockSizeVertical * 2),
-          Container(
-            height: SizeConfig.blockSizeVertical * 35,
-            width: SizeConfig.blockSizeHorizontal * 70,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade400, // Shadow color
-                    spreadRadius: 2, // Spread radius
-                    blurRadius: 10, // Blur radius
-                    offset: Offset(0, 5), // Offset in x and y direction
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius:
-                    BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
-            child: Column(
-              children: [
-                Container(
-                  margin:
-                      EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
-                  height: SizeConfig.blockSizeVertical * 18,
-                  width: SizeConfig.blockSizeHorizontal * 40,
+          Obx(() => controller.responseStatus.value == ResponseStatus.success
+              ? Container(
+                  height: SizeConfig.blockSizeVertical * 35,
+                  width: SizeConfig.blockSizeHorizontal * 70,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400, // Shadow color
+                          spreadRadius: 2, // Spread radius
+                          blurRadius: 10, // Blur radius
+                          offset: Offset(0, 5), // Offset in x and y direction
+                        ),
+                      ],
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(
-                          SizeConfig.blockSizeHorizontal * 4)),
-                ),
-                verticalSpace(SizeConfig.blockSizeVertical * 2),
-                bio_data("Name", "Devil"),
-                bio_data("Date of birth", "24-10-1986"),
-                bio_data("Country", "Canada"),
-                bio_data("Career", "Rapper Actor"),
-              ],
-            ),
-          )
+                          SizeConfig.blockSizeHorizontal * 6)),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: SizeConfig.blockSizeVertical * 1),
+                        height: SizeConfig.blockSizeVertical * 18,
+                        width: SizeConfig.blockSizeHorizontal * 40,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.blockSizeHorizontal * 4)),
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: "${controller.imageUrl.value}",
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.blockSizeHorizontal * 6,
+                                vertical: SizeConfig.blockSizeVertical * 6),
+                            child: CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
+                      verticalSpace(SizeConfig.blockSizeVertical * 2),
+                      Obx(() => controller.celebrity_match.value != null
+                          ? Column(
+                              children: [
+                                bio_data("Name",
+                                    "${controller.celebrity_match.value!.name}"),
+                                bio_data("Match Rate",
+                                    "${controller.celebrity_match.value!.matchPercentage}%"),
+                                // bio_data("Date of birth", "${controller.celebrity_match.value!.name}"),
+                                bio_data("Country",
+                                    "${controller.celebrity_match.value!.country}"),
+                                bio_data("Career",
+                                    "${controller.celebrity_match.value!.profession}"),
+                              ],
+                            )
+                          : Container()),
+                    ],
+                  ),
+                )
+              : Container())
         ],
       ),
     );
