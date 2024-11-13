@@ -113,12 +113,17 @@ class HomeView extends StatelessWidget {
                   AppImages.face_resemblance,
                   "Facial",
                   "Resemblance"),
-              scanner_modes(
-                  Color(0xFF7E51FF),
-                  Color.fromARGB(255, 161, 134, 238),
-                  AppImages.face_reading,
-                  "Face Reading",
-                  ""),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.FACEREADING);
+                },
+                child: scanner_modes(
+                    Color(0xFF7E51FF),
+                    Color.fromARGB(255, 161, 134, 238),
+                    AppImages.face_reading,
+                    "Face Reading",
+                    ""),
+              ),
               scanner_modes(
                   Color.fromARGB(255, 236, 240, 14),
                   Color.fromARGB(255, 228, 240, 102),

@@ -6,9 +6,11 @@ abstract class Routes {
 
   static const HOMEVIEW = _Paths.HOMEVIEW;
   static const CELEBRITYLOOK = _Paths.CELEBRITYLOOK;
+  static const FACEREADING = _Paths.FACEREADING;
 }
 
 abstract class _Paths {
   static const HOMEVIEW = '/HOMEVIEW';
   static const CELEBRITYLOOK = '/CELEBRITYLOOK';
+  static const FACEREADING = '/FACEREADING';
 }
