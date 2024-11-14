@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
@@ -15,14 +16,14 @@ class APIService {
   }
 
   // API credentials
-  final String apiKey = "AIzaSyB-bJtmzJNUJug6k1kIvkbDb1f0MhkYcuI";
-  final String cx = "f040e1d0e21e74322";
+  // final String apiKey = "AIzaSyB-bJtmzJNUJug6k1kIvkbDb1f0MhkYcuI";
+  // final String cx = "f040e1d0e21e74322";
   final String baseUrl = "https://www.googleapis.com/customsearch/v1";
 
   // Fetch image URL method
   Future<String?> fetchImageUrl(String query) async {
-    final url =
-        Uri.parse("$baseUrl?q=$query&cx=$cx&key=$apiKey&searchType=image");
+    final url = Uri.parse(
+        "$baseUrl?q=$query&cx=${RCVariables.customeSearchcx}&key=${RCVariables.customeSearchKey}&searchType=image");
 
     try {
       final response = await http.get(url);
