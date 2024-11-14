@@ -1,4 +1,6 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/modules/controller/face_reading_ctl.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,9 +15,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
       appBar: AppBar(
         title: Text(
           "Face Reading",
-          style: TextStyle(
-              fontSize: SizeConfig.blockSizeHorizontal * 5,
-              fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         leading: GestureDetector(
             onTap: () {
@@ -31,25 +31,23 @@ class FaceReading extends GetView<FaceReadingCtl> {
                 children: [
                   controller.selectedImage.value != null
                       ? Container(
-                          width: SizeConfig.screenWidth,
-                          height: SizeConfig.blockSizeVertical * 45,
+                          width: double.infinity,
+                          height: 300,
                           child: Image.file(
                             controller.selectedImage.value!,
                             fit: BoxFit.fill,
                           ),
                         )
                       : Container(
-                          width: SizeConfig.screenWidth,
-                          height: SizeConfig.blockSizeVertical * 45,
+                          width: double.infinity,
+                          height: 300,
                           decoration:
                               BoxDecoration(color: Colors.grey.shade200),
                           child: Center(
                             child: Text(
                               "Add Image",
-                              style: TextStyle(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.5,
-                                  color: Colors.grey),
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
                             ),
                           ),
                         ),
@@ -63,21 +61,17 @@ class FaceReading extends GetView<FaceReadingCtl> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        SizeConfig.blockSizeHorizontal * 3)),
+                                    borderRadius: BorderRadius.circular(8)),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
                                       'Choose Image',
                                       style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal * 5,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    verticalSpace(
-                                        SizeConfig.blockSizeVertical * 3),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -86,7 +80,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.camera);
-                                              // Get.back();
+                                              Get.to(() => scanner_method());
                                             },
                                             child: _buildImageOption(
                                                 Icons.camera_alt, 'Camera')),
@@ -94,7 +88,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.gallery);
-                                              // Get.back();
+                                              Get.to(() => scanner_method());
                                             },
                                             child: _buildImageOption(
                                                 Icons.image, 'Gallery')),
@@ -106,8 +100,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                             });
                       },
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.blockSizeHorizontal * 8)),
+                          borderRadius: BorderRadius.circular(16)),
                       backgroundColor: Colors.teal,
                       child: Icon(
                         Icons.add_photo_alternate_outlined,
@@ -118,21 +111,17 @@ class FaceReading extends GetView<FaceReadingCtl> {
                 ],
               ),
             ),
-            verticalSpace(SizeConfig.blockSizeVertical * 2),
+            verticalSpace(16),
             Container(
-              height: SizeConfig.blockSizeVertical * 40,
-              width: SizeConfig.blockSizeHorizontal * 92,
+              height: 240,
+              width: 350,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(
-                      SizeConfig.blockSizeHorizontal * 4)),
+                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
               child: Padding(
-                padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 4),
+                padding: EdgeInsets.all(16),
                 child: Text(
                   "Definition. A paragraph is a group of related sentences that support one main idea. In general, paragraphs consist of three parts: the topic sentence, body sentences, and the concluding or the bridge sentence to the next paragraph or section of the paper.",
-                  style: TextStyle(
-                      fontSize: SizeConfig.blockSizeHorizontal * 4,
-                      color: Colors.black),
+                  style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
             ),
@@ -151,6 +140,145 @@ class FaceReading extends GetView<FaceReadingCtl> {
         Text(label,
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),
       ],
+    );
+  }
+
+  Widget scanner_method() {
+    return GetX<FaceReadingCtl>(
+      builder: (controller) {
+        return Container(
+          height: SizeConfig.screenHeight,
+          width: SizeConfig.screenWidth,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Circular frame with the image inside
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  DottedBorder(
+                    borderType: BorderType.Circle,
+                    color: Colors.greenAccent,
+                    strokeWidth: 2,
+                    dashPattern: [6, 3],
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 95,
+                    backgroundColor: Colors.white,
+                    backgroundImage: controller.selectedImage.value != null
+                        ? FileImage(controller.selectedImage.value!)
+                        : null,
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Container(
+                      width: SizeConfig.blockSizeHorizontal * 10,
+                      height: SizeConfig.blockSizeVertical * 5,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.greenAccent, width: 4),
+                          left: BorderSide(color: Colors.greenAccent, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      width: SizeConfig.blockSizeHorizontal * 10,
+                      height: SizeConfig.blockSizeVertical * 5,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.greenAccent, width: 4),
+                          right:
+                              BorderSide(color: Colors.greenAccent, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Container(
+                      width: SizeConfig.blockSizeHorizontal * 10,
+                      height: SizeConfig.blockSizeVertical * 5,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom:
+                              BorderSide(color: Colors.greenAccent, width: 4),
+                          left: BorderSide(color: Colors.greenAccent, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      width: SizeConfig.blockSizeHorizontal * 10,
+                      height: SizeConfig.blockSizeVertical * 5,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom:
+                              BorderSide(color: Colors.greenAccent, width: 4),
+                          right:
+                              BorderSide(color: Colors.greenAccent, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Scanning line with animation
+                  Positioned(
+                    top: controller.animationController.value * 180,
+                    child: Container(
+                      width: 180,
+                      height: 2,
+                      color: Colors.greenAccent,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
+              Text(
+                'SCANNING...',
+                style: TextStyle(
+                  color: Colors.greenAccent,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              // Progress bar with animation
+              Container(
+                width: 250,
+                height: 20,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.greenAccent),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  children: List.generate(20, (index) {
+                    return Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 1),
+                        color: index < (controller.scanningProgress.value ~/ 5)
+                            ? Colors.greenAccent
+                            : Colors.black,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
