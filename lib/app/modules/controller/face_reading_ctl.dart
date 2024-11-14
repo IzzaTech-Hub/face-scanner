@@ -1,63 +1,52 @@
+import 'dart:async';
 import 'dart:io';
 
-import 'package:face_scanner/app/utills/images.dart';
-import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class FaceReadingCtl extends GetxController {
+class FaceReadingCtl extends GetxController
+    with GetSingleTickerProviderStateMixin {
   var selectedImage = Rx<File?>(null);
-  final ImagePicker _picker = ImagePicker();
+  Rx<bool> isScanning = false.obs;
+
+  late AnimationController animationController;
+  var scanningProgress = 0.obs;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
+    animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true); // Repeat the scanning line animation
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+    }
+  }
+
+  void startScanning() {
+    isScanning.value = true;
+    scanningProgress.value = 0;
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (scanningProgress.value < 100) {
+        scanningProgress.value += 10;
+      } else {
+        timer.cancel();
+        isScanning.value = false;
+      }
+    });
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    animationController.dispose();
     super.onClose();
-  }
-
-  Future<void> pickImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
-      selectedImage.value = File(pickedFile.path);
-      Get.dialog(
-        Container(
-          height: SizeConfig.screenHeight,
-          width: SizeConfig.screenWidth,
-          decoration: BoxDecoration(color: Colors.white),
-          child: AlertDialog(
-            title: Text(''),
-            backgroundColor: Colors.white,
-            content: Stack(
-              children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical * 35,
-                  width: SizeConfig.blockSizeHorizontal * 70,
-                  decoration: BoxDecoration(),
-                  child: Image.asset(
-                    AppImages.scanner,
-                    color: Colors.teal,
-                  ),
-                )
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.back(); // Close the dialog
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
   }
 }
