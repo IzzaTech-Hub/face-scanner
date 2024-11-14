@@ -8,4 +8,5 @@ class AppImages {
   static const face_resemblance = "assets/images/face_resemblance.png";
   static const beauty_score = "assets/images/beauty_score.png";
   static const analysis = "assets/images/analysis.png";
+  static const scanner = "assets/images/scanner.png";
 }
