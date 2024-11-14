@@ -1,9 +1,9 @@
-import 'package:face_scanner/app/modules/binding/celebrity_look_binding.dart';
-import 'package:face_scanner/app/modules/binding/face_reading_binding.dart';
-import 'package:face_scanner/app/modules/binding/home_view_binding.dart';
-import 'package:face_scanner/app/modules/views/celebrity_look.dart';
-import 'package:face_scanner/app/modules/views/face_reading.dart';
-import 'package:face_scanner/app/modules/views/home_view.dart';
+import 'package:face_scanner/app/modules/home/binding/celebrity_look_binding.dart';
+import 'package:face_scanner/app/modules/home/binding/face_reading_binding.dart';
+import 'package:face_scanner/app/modules/home/binding/home_view_binding.dart';
+import 'package:face_scanner/app/modules/home/views/celebrity_look.dart';
+import 'package:face_scanner/app/modules/home/views/face_reading.dart';
+import 'package:face_scanner/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
