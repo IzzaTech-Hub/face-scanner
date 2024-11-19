@@ -7,6 +7,9 @@ abstract class Routes {
   static const HOMEVIEW = _Paths.HOMEVIEW;
   static const CELEBRITYLOOK = _Paths.CELEBRITYLOOK;
   static const FACEREADING = _Paths.FACEREADING;
+  static const BEAUTYSCORE = _Paths.BEAUTYSCORE;
+  static const BEAUTYSCORERESULT = _Paths.BEAUTYSCORERESULT;
+  static const FACEBEAUTYANALYSIS = _Paths.FACEBEAUTYANALYSIS;
   static const TEMP = _Paths.TEMP;
 }
 
@@ -14,5 +17,8 @@ abstract class _Paths {
   static const HOMEVIEW = '/HOMEVIEW';
   static const CELEBRITYLOOK = '/CELEBRITYLOOK';
   static const FACEREADING = '/FACEREADING';
+  static const BEAUTYSCORE = '/BEAUTYSCORE';
+  static const BEAUTYSCORERESULT = '/BEAUTYSCORERESULT';
+  static const FACEBEAUTYANALYSIS = '/FACEBEAUTYANALYSIS';
   static const TEMP = '/temp';
 }

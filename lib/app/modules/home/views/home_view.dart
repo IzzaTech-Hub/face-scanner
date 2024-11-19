@@ -95,23 +95,23 @@ class HomeView extends StatelessWidget {
                 child: scanner_modes(Color(0xFFD06810), Color(0xFFCA986F),
                     AppImages.celebrity_look, "Looks like a", "Celebrity"),
               ),
+              scanner_modes(
+                  Color.fromARGB(255, 71, 216, 76),
+                  Color.fromARGB(255, 113, 209, 111),
+                  AppImages.facial_symmetry,
+                  "Facial Symmetery",
+                  ""),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.TEMP);
+                  Get.toNamed(Routes.BEAUTYSCORE);
                 },
                 child: scanner_modes(
-                    Color.fromARGB(255, 71, 216, 76),
-                    Color.fromARGB(255, 113, 209, 111),
-                    AppImages.facial_symmetry,
-                    "Facial Symmetery",
-                    ""),
+                    Color(0xFFBF04C3),
+                    Color.fromARGB(255, 226, 134, 228),
+                    AppImages.beauty_score,
+                    "Beauty Score",
+                    "Showdown"),
               ),
-              scanner_modes(
-                  Color(0xFFBF04C3),
-                  Color.fromARGB(255, 226, 134, 228),
-                  AppImages.beauty_score,
-                  "Beauty Score",
-                  "Showdown"),
               scanner_modes(
                   Color.fromARGB(255, 0, 201, 252),
                   Color.fromARGB(255, 140, 223, 241),
