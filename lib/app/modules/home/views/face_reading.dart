@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/modules/home/controller/face_reading_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,8 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.camera);
-                                              Get.to(() => scanner_method());
+
+                                              Get.to(() => ScannerWidget());
                                             },
                                             child: _buildImageOption(
                                                 Icons.camera_alt, 'Camera')),
@@ -87,7 +89,8 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.gallery);
-                                              Get.to(() => scanner_method());
+
+                                              Get.to(() => ScannerWidget());
                                             },
                                             child: _buildImageOption(
                                                 Icons.image, 'Gallery')),
@@ -139,145 +142,6 @@ class FaceReading extends GetView<FaceReadingCtl> {
         Text(label,
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),
       ],
-    );
-  }
-
-  Widget scanner_method() {
-    return GetX<FaceReadingCtl>(
-      builder: (controller) {
-        return Container(
-          height: SizeConfig.screenHeight,
-          width: SizeConfig.screenWidth,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Circular frame with the image inside
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  DottedBorder(
-                    borderType: BorderType.Circle,
-                    color: Colors.greenAccent,
-                    strokeWidth: 2,
-                    dashPattern: [6, 3],
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 95,
-                    backgroundColor: Colors.white,
-                    backgroundImage: controller.selectedImage.value != null
-                        ? FileImage(controller.selectedImage.value!)
-                        : null,
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      width: SizeConfig.blockSizeHorizontal * 10,
-                      height: SizeConfig.blockSizeVertical * 5,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: Colors.greenAccent, width: 4),
-                          left: BorderSide(color: Colors.greenAccent, width: 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      width: SizeConfig.blockSizeHorizontal * 10,
-                      height: SizeConfig.blockSizeVertical * 5,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: Colors.greenAccent, width: 4),
-                          right:
-                              BorderSide(color: Colors.greenAccent, width: 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: Container(
-                      width: SizeConfig.blockSizeHorizontal * 10,
-                      height: SizeConfig.blockSizeVertical * 5,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom:
-                              BorderSide(color: Colors.greenAccent, width: 4),
-                          left: BorderSide(color: Colors.greenAccent, width: 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: SizeConfig.blockSizeHorizontal * 10,
-                      height: SizeConfig.blockSizeVertical * 5,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom:
-                              BorderSide(color: Colors.greenAccent, width: 4),
-                          right:
-                              BorderSide(color: Colors.greenAccent, width: 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Scanning line with animation
-                  Positioned(
-                    top: controller.animationController.value * 180,
-                    child: Container(
-                      width: 180,
-                      height: 2,
-                      color: Colors.greenAccent,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              Text(
-                'SCANNING...',
-                style: TextStyle(
-                  color: Colors.greenAccent,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20),
-              // Progress bar with animation
-              Container(
-                width: 250,
-                height: 20,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.greenAccent),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  children: List.generate(20, (index) {
-                    return Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 1),
-                        color: index < (controller.scanningProgress.value ~/ 5)
-                            ? Colors.greenAccent
-                            : Colors.black,
-                      ),
-                    );
-                  }),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
