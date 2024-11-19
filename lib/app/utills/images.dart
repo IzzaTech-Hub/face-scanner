@@ -12,6 +12,11 @@ class AppImages {
   static const beauty_winner_2 = "assets/images/beauty_winner_2.png";
   static const vs = "assets/images/vs.png";
   static const crown = "assets/images/crown.png";
+  static const nose = "assets/images/nose.png";
+  static const face = "assets/images/face.png";
+  static const lips = "assets/images/lips.png";
+  static const eyes = "assets/images/eyes.png";
+  static const eyebrows = "assets/images/eyebrows.png";
 
 // SVG
 

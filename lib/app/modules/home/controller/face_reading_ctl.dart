@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 class FaceReadingCtl extends GetxController
     with GetSingleTickerProviderStateMixin {
   var selectedImage = Rx<File?>(null);
+  RxInt selectedIndex = 0.obs;
   Rx<bool> isScanning = false.obs;
 
   late AnimationController animationController;
@@ -42,6 +43,10 @@ class FaceReadingCtl extends GetxController
         isScanning.value = false;
       }
     });
+  }
+
+  void changeTabIndex(int index) {
+    selectedIndex.value = index;
   }
 
   @override

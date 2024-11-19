@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/modules/home/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
+import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,19 @@ class FaceReading extends GetView<FaceReadingCtl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
+            currentIndex: controller.selectedIndex.value,
+            onTap: controller.changeTabIndex,
+            items: [
+              nav_bar(AppImages.face, "Face"),
+              nav_bar(AppImages.lips, "Lips"),
+              nav_bar(AppImages.eyes, "Eyes"),
+              nav_bar(AppImages.nose, "Nose"),
+              nav_bar(AppImages.eyebrows, "EyeBrows"),
+            ],
+            selectedItemColor: Colors.teal,
+            unselectedItemColor: Colors.grey,
+          )),
       appBar: AppBar(
         title: Text(
           "Face Reading",
@@ -131,6 +145,22 @@ class FaceReading extends GetView<FaceReadingCtl> {
         ),
       ),
     );
+  }
+
+  BottomNavigationBarItem nav_bar(String image, String text) {
+    return BottomNavigationBarItem(
+        icon: Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(SizeConfig.blockSizeHorizontal * 1),
+            ),
+            child: Image.asset(
+              image,
+              width: SizeConfig.blockSizeHorizontal * 9,
+              fit: BoxFit.fill,
+            )),
+        label: text);
   }
 
   Widget _buildImageOption(IconData icon, String label) {
