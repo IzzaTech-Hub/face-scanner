@@ -101,12 +101,17 @@ class HomeView extends StatelessWidget {
                   AppImages.facial_symmetry,
                   "Facial Symmetery",
                   ""),
-              scanner_modes(
-                  Color(0xFFBF04C3),
-                  Color.fromARGB(255, 226, 134, 228),
-                  AppImages.beauty_score,
-                  "Beauty Score",
-                  "Showdown"),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.BEAUTYSCORE);
+                },
+                child: scanner_modes(
+                    Color(0xFFBF04C3),
+                    Color.fromARGB(255, 226, 134, 228),
+                    AppImages.beauty_score,
+                    "Beauty Score",
+                    "Showdown"),
+              ),
               scanner_modes(
                   Color.fromARGB(255, 0, 201, 252),
                   Color.fromARGB(255, 140, 223, 241),
