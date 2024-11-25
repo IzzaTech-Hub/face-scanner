@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
-import 'package:face_scanner/app/modules/home/controller/face_reading_ctl.dart';
+import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';

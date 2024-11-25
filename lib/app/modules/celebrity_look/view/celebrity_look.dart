@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
-import 'package:face_scanner/app/modules/home/controller/celebrity_look_ctl.dart';
+import 'package:face_scanner/app/modules/celebrity_look/controller/celebrity_look_ctl.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';

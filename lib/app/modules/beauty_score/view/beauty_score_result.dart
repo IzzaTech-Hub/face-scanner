@@ -1,4 +1,4 @@
-import 'package:face_scanner/app/modules/home/controller/beauty_score_ctl.dart';
+import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
