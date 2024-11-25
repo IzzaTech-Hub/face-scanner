@@ -1,5 +1,6 @@
 import 'package:face_scanner/app/modules/beauty_score/binding/beauty_score_binding.dart';
 import 'package:face_scanner/app/modules/celebrity_look/binding/celebrity_look_binding.dart';
+import 'package:face_scanner/app/modules/face_beauty_analysis/binding/face_beauty_analysis_binding.dart';
 import 'package:face_scanner/app/modules/face_reading/binding/face_reading_binding.dart';
 import 'package:face_scanner/app/modules/home/binding/home_view_binding.dart';
 import 'package:face_scanner/app/modules/beauty_score/view/beauty_score.dart';
@@ -9,13 +10,6 @@ import 'package:face_scanner/app/modules/face_beauty_analysis/views/face_beauty_
 import 'package:face_scanner/app/modules/face_reading/view/face_reading.dart';
 import 'package:face_scanner/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
-
-import '../modules/celebrity_look/binding/celebrity_look_binding.dart';
-import '../modules/face_reading/binding/face_reading_binding.dart';
-import '../modules/home/binding/home_view_binding.dart';
-import '../modules/celebrity_look/view/celebrity_look.dart';
-import '../modules/face_reading/view/face_reading.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/temp/bindings/temp_binding.dart';
 import '../modules/temp/views/temp_view.dart';
 
@@ -60,6 +54,6 @@ class AppPages {
     GetPage(
         name: _Paths.FACEBEAUTYANALYSIS,
         page: () => FaceBeautyAnalysis(),
-        binding: FaceReadingBinding()),
+        binding: FaceBeautyAnalysisBinding()),
   ];
 }

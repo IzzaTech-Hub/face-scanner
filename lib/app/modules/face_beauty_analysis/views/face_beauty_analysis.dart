@@ -1,8 +1,11 @@
+import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-class FaceBeautyAnalysis extends StatelessWidget {
+class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
   const FaceBeautyAnalysis({super.key});
 
   @override
@@ -19,111 +22,215 @@ class FaceBeautyAnalysis extends StatelessWidget {
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       Obx(
-      //         () => Stack(
-      //           children: [
-      //             controller.selectedImage.value != null
-      //                 ? Container(
-      //                     width: double.infinity,
-      //                     height: 300,
-      //                     child: Image.file(
-      //                       controller.selectedImage.value!,
-      //                       fit: BoxFit.fill,
-      //                     ),
-      //                   )
-      //                 : Container(
-      //                     width: double.infinity,
-      //                     height: 300,
-      //                     decoration:
-      //                         BoxDecoration(color: Colors.grey.shade200),
-      //                     child: Center(
-      //                       child: Text(
-      //                         "Add Image",
-      //                         style:
-      //                             TextStyle(fontSize: 18, color: Colors.grey),
-      //                       ),
-      //                     ),
-      //                   ),
-      //             Positioned(
-      //               right: 16.0,
-      //               bottom: 16.0,
-      //               child: FloatingActionButton(
-      //                 onPressed: () {
-      //                   showDialog(
-      //                       context: context,
-      //                       builder: (BuildContext context) {
-      //                         return AlertDialog(
-      //                           shape: RoundedRectangleBorder(
-      //                               borderRadius: BorderRadius.circular(8)),
-      //                           content: Column(
-      //                             mainAxisSize: MainAxisSize.min,
-      //                             children: [
-      //                               Text(
-      //                                 'Choose Image',
-      //                                 style: TextStyle(
-      //                                   fontSize: 20,
-      //                                   fontWeight: FontWeight.bold,
-      //                                 ),
-      //                               ),
-      //                               Row(
-      //                                 mainAxisAlignment:
-      //                                     MainAxisAlignment.spaceEvenly,
-      //                                 children: [
-      //                                   GestureDetector(
-      //                                       onTap: () async {
-      //                                         await controller.pickImage(
-      //                                             ImageSource.camera);
-      //                                         Get.to(() => scanner_method());
-      //                                       },
-      //                                       child: _buildImageOption(
-      //                                           Icons.camera_alt, 'Camera')),
-      //                                   GestureDetector(
-      //                                       onTap: () async {
-      //                                         await controller.pickImage(
-      //                                             ImageSource.gallery);
-      //                                         Get.to(() => scanner_method());
-      //                                       },
-      //                                       child: _buildImageOption(
-      //                                           Icons.image, 'Gallery')),
-      //                                 ],
-      //                               ),
-      //                             ],
-      //                           ),
-      //                         );
-      //                       });
-      //                 },
-      //                 shape: RoundedRectangleBorder(
-      //                     borderRadius: BorderRadius.circular(16)),
-      //                 backgroundColor: Colors.teal,
-      //                 child: Icon(
-      //                   Icons.add_photo_alternate_outlined,
-      //                   color: Colors.white,
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       verticalSpace(16),
-      //       Container(
-      //         height: 240,
-      //         width: 350,
-      //         decoration: BoxDecoration(
-      //             color: Colors.white, borderRadius: BorderRadius.circular(16)),
-      //         child: Padding(
-      //           padding: EdgeInsets.all(16),
-      //           child: Text(
-      //             "Definition. A paragraph is a group of related sentences that support one main idea. In general, paragraphs consist of three parts: the topic sentence, body sentences, and the concluding or the bridge sentence to the next paragraph or section of the paper.",
-      //             style: TextStyle(fontSize: 16, color: Colors.black),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Obx(
+              () => Stack(
+                children: [
+                  controller.selectedImage.value != null
+                      ? Container(
+                          width: double.infinity,
+                          height: 300,
+                          child: Image.file(
+                            controller.selectedImage.value!,
+                            fit: BoxFit.fill,
+                          ),
+                        )
+                      : Container(
+                          width: double.infinity,
+                          height: 300,
+                          decoration:
+                              BoxDecoration(color: Colors.grey.shade200),
+                          child: Center(
+                            child: Text(
+                              "Add Image",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                  Positioned(
+                    right: 16.0,
+                    bottom: 16.0,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Choose Image',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () async {
+                                              await controller.pickImage(
+                                                  ImageSource.camera);
+                                              Get.back();
+                                              // Get.to(() => scanner_method());
+                                            },
+                                            child: _buildImageOption(
+                                                Icons.camera_alt, 'Camera')),
+                                        GestureDetector(
+                                            onTap: () async {
+                                              await controller.pickImage(
+                                                  ImageSource.gallery);
+                                              Get.back();
+                                              // Get.to(() => scanner_method());
+                                            },
+                                            child: _buildImageOption(
+                                                Icons.image, 'Gallery')),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      backgroundColor: Colors.teal,
+                      child: Icon(
+                        Icons.add_photo_alternate_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
+              height: SizeConfig.blockSizeVertical * 50,
+              width: SizeConfig.screenWidth,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Graph(
+                            size: SizeConfig.blockSizeVertical * 25,
+                            color: Colors.amber,
+                            progress: 0.5,
+                          ),
+                          Container(
+                            height: SizeConfig.blockSizeVertical * 20,
+                            width: SizeConfig.blockSizeHorizontal * 33,
+                            decoration: BoxDecoration(
+                                color: Colors.teal.shade100,
+                                shape: BoxShape.circle),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Beauty Score",
+                                  style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 4),
+                                ),
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "6.76",
+                                          style: TextStyle(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                  8,
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(
+                                        text: " /10",
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    4,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            simple_text("Gender"),
+                            bold_text("${controller.gender.value}"),
+                            simple_text("Age"),
+                            bold_text("${controller.age.value}"),
+                            simple_text("Glass"),
+                            bold_text("${controller.glass.value}")
+                          ],
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          simple_text("Smile"),
+                          bold_text("${controller.smile.value}%"),
+                          simple_text("Ethnicity"),
+                          bold_text("${controller.ethnicity.value}"),
+                          simple_text("Face Quality"),
+                          bold_text("${controller.face_quality.value}%")
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.blockSizeHorizontal * 3,
+                        vertical: SizeConfig.blockSizeVertical * 3),
+                    child: Text(
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 4),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Text bold_text(String bold_text_1) {
+    return Text(
+      bold_text_1,
+      style: TextStyle(
+          fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+          fontWeight: FontWeight.bold),
+    );
+  }
+
+  Text simple_text(String simple_text_1) {
+    return Text(
+      simple_text_1,
+      style: TextStyle(
+          fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+          fontStyle: FontStyle.italic),
     );
   }
 

@@ -24,61 +24,66 @@ class HomeView extends StatelessWidget {
       body: Column(
         children: [
           Center(
-            child: Container(
-              margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
-              width: SizeConfig.blockSizeHorizontal * 92,
-              height: SizeConfig.blockSizeVertical * 15,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400, // Shadow color
-                      spreadRadius: 2, // Spread radius
-                      blurRadius: 10, // Blur radius
-                      offset: Offset(0, 5), // Offset in x and y direction
-                    ),
-                  ],
-                  gradient: LinearGradient(
-                      colors: [Color(0xFFFF378B), Color(0xFFF4AEBF)],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter),
-                  borderRadius: BorderRadius.circular(
-                      SizeConfig.blockSizeHorizontal * 4)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(),
-                    child: Image.asset(
-                      AppImages.face_beauty,
-                      scale: 2,
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: SizeConfig.blockSizeVertical * 10,
-                        width: SizeConfig.blockSizeHorizontal * 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.blockSizeHorizontal * 7),
-                        ),
-                        child: Image.asset(
-                          AppImages.analysis,
-                          color: Colors.white,
-                        ),
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.FACEBEAUTYANALYSIS);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
+                width: SizeConfig.blockSizeHorizontal * 92,
+                height: SizeConfig.blockSizeVertical * 15,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade400, // Shadow color
+                        spreadRadius: 2, // Spread radius
+                        blurRadius: 10, // Blur radius
+                        offset: Offset(0, 5), // Offset in x and y direction
                       ),
-                      Text(
-                        "Face Beauty Analysis",
-                        style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      )
                     ],
-                  )
-                ],
+                    gradient: LinearGradient(
+                        colors: [Color(0xFFFF378B), Color(0xFFF4AEBF)],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter),
+                    borderRadius: BorderRadius.circular(
+                        SizeConfig.blockSizeHorizontal * 4)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(),
+                      child: Image.asset(
+                        AppImages.face_beauty,
+                        scale: 2,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: SizeConfig.blockSizeVertical * 10,
+                          width: SizeConfig.blockSizeHorizontal * 20,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.blockSizeHorizontal * 7),
+                          ),
+                          child: Image.asset(
+                            AppImages.analysis,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          "Face Beauty Analysis",
+                          style: TextStyle(
+                              fontSize: SizeConfig.blockSizeHorizontal * 4,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
