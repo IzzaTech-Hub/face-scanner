@@ -229,13 +229,13 @@ class BeautyScoreResult extends GetView<BeautyScoreCtl> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "${controller.percentage1.value}%",
+                "${controller.score1.value}",
                 style: TextStyle(
                     fontSize: SizeConfig.blockSizeHorizontal * 4,
                     color: Colors.white),
               ),
               Text(
-                "${controller.percentage2.value}%",
+                "${controller.score2.value}",
                 style: TextStyle(
                     fontSize: SizeConfig.blockSizeHorizontal * 4,
                     color: Colors.white),
@@ -271,7 +271,7 @@ class _AnimatedStackModuleState1 extends State<AnimatedStackModule1>
     );
 
     _heightAnimation =
-        Tween<double>(begin: 0, end: 0.01 * controller.percentage1.value)
+        Tween<double>(begin: 0, end: 0.01 * (10 * controller.score1.value))
             .animate(_controller)
           ..addListener(() {
             setState(() {});
@@ -374,7 +374,7 @@ class _AnimatedStackModuleState2 extends State<AnimatedStackModule2>
     );
 
     _heightAnimation =
-        Tween<double>(begin: 0, end: 0.01 * controller.percentage2.value)
+        Tween<double>(begin: 0, end: 0.01 * (10 * controller.score2.value))
             .animate(_controller)
           ..addListener(() {
             setState(() {});

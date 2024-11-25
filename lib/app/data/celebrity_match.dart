@@ -1,12 +1,12 @@
 class CelebrityMatch {
-  final String name;
+  final String celebrityName;
   final String country;
   final String profession;
   final String matchPercentage;
   final String description;
 
   CelebrityMatch({
-    required this.name,
+    required this.celebrityName,
     required this.country,
     required this.profession,
     required this.matchPercentage,
@@ -16,7 +16,7 @@ class CelebrityMatch {
   // Factory method to create a CelebrityMatch instance from JSON
   factory CelebrityMatch.fromJson(Map<String, dynamic> json) {
     return CelebrityMatch(
-      name: json['name'] ?? '',
+      celebrityName: json['celebrityName'] ?? '',
       country: json['country'] ?? '',
       profession: json['profession'] ?? '',
       matchPercentage: (json['match_percentage'] ?? '').toString(),
@@ -27,7 +27,7 @@ class CelebrityMatch {
   // Method to convert a CelebrityMatch instance to JSON
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'celebrityName': celebrityName,
       'country': country,
       'profession': profession,
       'match_percentage': matchPercentage,

@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/home/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/utills/images.dart';
@@ -13,19 +14,24 @@ class FaceReading extends GetView<FaceReadingCtl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-            currentIndex: controller.selectedIndex.value,
-            onTap: controller.changeTabIndex,
-            items: [
-              nav_bar(AppImages.face, "Face"),
-              nav_bar(AppImages.lips, "Lips"),
-              nav_bar(AppImages.eyes, "Eyes"),
-              nav_bar(AppImages.nose, "Nose"),
-              nav_bar(AppImages.eyebrows, "EyeBrows"),
-            ],
-            selectedItemColor: Colors.teal,
-            unselectedItemColor: Colors.grey,
-          )),
+      bottomNavigationBar:
+          Obx(() => controller.responseStatus.value == ResponseStatus.success
+              ? BottomNavigationBar(
+                  currentIndex: controller.selectedIndex.value,
+                  onTap: controller.changeTabIndex,
+                  items: [
+                    nav_bar(AppImages.face, "Face"),
+                    nav_bar(AppImages.lips, "Lips"),
+                    nav_bar(AppImages.eyes, "Eyes"),
+                    nav_bar(AppImages.nose, "Nose"),
+                    nav_bar(AppImages.eyebrows, "EyeBrows"),
+                  ],
+                  selectedItemColor: Colors.teal,
+                  unselectedItemColor: Colors.grey,
+                )
+              : Container(
+                  height: 0,
+                )),
       appBar: AppBar(
         title: Text(
           "Face Reading",
@@ -94,6 +100,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.camera);
+                                              Get.back();
 
                                               Get.to(() => ScannerWidget());
                                             },
@@ -103,6 +110,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                             onTap: () async {
                                               await controller.pickImage(
                                                   ImageSource.gallery);
+                                              Get.back();
 
                                               Get.to(() => ScannerWidget());
                                             },
@@ -128,19 +136,22 @@ class FaceReading extends GetView<FaceReadingCtl> {
               ),
             ),
             verticalSpace(16),
-            Container(
-              height: 240,
-              width: 350,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  "Definition. A paragraph is a group of related sentences that support one main idea. In general, paragraphs consist of three parts: the topic sentence, body sentences, and the concluding or the bridge sentence to the next paragraph or section of the paper.",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-              ),
-            ),
+            Obx(() => controller.responseStatus.value == ResponseStatus.success
+                ? Container(
+                    height: 240,
+                    width: 350,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        controller.selectedFeature.value,
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ),
+                  )
+                : Container()),
           ],
         ),
       ),

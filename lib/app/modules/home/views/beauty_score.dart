@@ -39,10 +39,12 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     // Check if images are picked before navigating
                     if (controller.selectedImage1.value != null &&
                         controller.selectedImage2.value != null) {
+                      await controller.compareImages();
+
                       Get.toNamed(
                         Routes.BEAUTYSCORERESULT,
                         // arguments can be passed here if needed
