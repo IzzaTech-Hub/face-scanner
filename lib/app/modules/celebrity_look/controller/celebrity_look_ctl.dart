@@ -22,6 +22,20 @@ class CelebrityLookCtl extends GetxController {
 
   RxBool isTrue = false.obs;
 
+  RxString selectedOption = "Top 100 social media influencers".obs;
+
+  RxList<String> options = [
+    "Top 100 social media influencers",
+    "Top 100 best football players",
+    "richest people in the World",
+    "Top 100 Beauty Women",
+    "Top 100 Handsome Men",
+    "bodybuilder in the World",
+    "supermodels in the World",
+    "contemporary basketballer",
+    "Top Asian influencers",
+  ].obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -39,7 +53,7 @@ class CelebrityLookCtl extends GetxController {
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
 
-      // sendImageToGoogleAI(selectedImage.value!);
+      sendImageToGoogleAI(selectedImage.value!);
     }
   }
 

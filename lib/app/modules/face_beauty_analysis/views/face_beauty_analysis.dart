@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
   const FaceBeautyAnalysis({super.key});
@@ -112,104 +115,187 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
-              height: SizeConfig.blockSizeVertical * 50,
-              width: SizeConfig.screenWidth,
-              decoration: BoxDecoration(color: Colors.white),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
+            verticalSpace(SizeConfig.blockSizeVertical * 1),
+            Obx(() => controller.selectedImage.value != null &&
+                    controller.responseStatus.value == ResponseStatus.idle
+                ? GestureDetector(
+                    onTap: () {
+                      controller
+                          .sendImageToGoogleAI(controller.selectedImage.value!);
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical * 6.5,
+                      width: SizeConfig.blockSizeHorizontal * 70,
+                      decoration: BoxDecoration(
+                          color: Colors.teal.shade400,
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 4)),
+                      child: Center(
+                        child: Text(
+                          "Analyze Beauty",
+                          style: TextStyle(
+                              fontSize: SizeConfig.blockSizeHorizontal * 5,
+                              // fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container()),
+            Obx(() {
+              switch (controller.responseStatus.value) {
+                case ResponseStatus.success:
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 3),
+                      height: SizeConfig.blockSizeVertical * 50,
+                      width: SizeConfig.screenWidth,
+                      color: Colors.white,
+                      child: Column(
                         children: [
-                          Graph(
-                            size: SizeConfig.blockSizeVertical * 25,
-                            color: Colors.amber,
-                            progress: 0.5,
-                          ),
-                          Container(
-                            height: SizeConfig.blockSizeVertical * 20,
-                            width: SizeConfig.blockSizeHorizontal * 33,
-                            decoration: BoxDecoration(
-                                color: Colors.teal.shade100,
-                                shape: BoxShape.circle),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Beauty Score",
-                                  style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 4),
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                          text: "6.76",
-                                          style: TextStyle(
+                          // Row with Graph and List
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              // Graph on the left
+                              Center(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Graph(
+                                      size: SizeConfig.blockSizeVertical * 25,
+                                      color: Colors.teal,
+                                      progress: controller
+                                              .beauty_analysis.value!.score *
+                                          0.1,
+                                    ),
+                                    Container(
+                                      height: SizeConfig.blockSizeVertical * 20,
+                                      width:
+                                          SizeConfig.blockSizeHorizontal * 33,
+                                      decoration: BoxDecoration(
+                                          color: Colors.teal.shade100,
+                                          shape: BoxShape.circle),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Beauty Score",
+                                            style: TextStyle(
                                               fontSize: SizeConfig
                                                       .blockSizeHorizontal *
-                                                  8,
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                        text: " /10",
-                                        style: TextStyle(
-                                            fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4,
-                                            fontWeight: FontWeight.bold),
+                                                  4,
+                                            ),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                    text:
+                                                        "${controller.beauty_analysis.value!.score}",
+                                                    style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                                .blockSizeHorizontal *
+                                                            8,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextSpan(
+                                                  text: " /10",
+                                                  style: TextStyle(
+                                                      fontSize: SizeConfig
+                                                              .blockSizeHorizontal *
+                                                          4,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // List on the right
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  simple_text("Gender"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.gender}"),
+                                  simple_text("Age"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.age}"),
+                                  simple_text("Glass"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.score}"),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  simple_text("Smile"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.smile}%"),
+                                  simple_text("Ethnicity"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.score}"),
+                                  simple_text("Face Quality"),
+                                  bold_text(
+                                      "${controller.beauty_analysis.value!.faceQuality}%"),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // Dummy Text below
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.blockSizeHorizontal * 3,
+                              vertical: SizeConfig.blockSizeVertical * 3,
+                            ),
+                            child: Text(
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
                       ),
-                      Obx(
-                        () => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            simple_text("Gender"),
-                            bold_text("${controller.gender.value}"),
-                            simple_text("Age"),
-                            bold_text("${controller.age.value}"),
-                            simple_text("Glass"),
-                            bold_text("${controller.glass.value}")
-                          ],
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          simple_text("Smile"),
-                          bold_text("${controller.smile.value}%"),
-                          simple_text("Ethnicity"),
-                          bold_text("${controller.ethnicity.value}"),
-                          simple_text("Face Quality"),
-                          bold_text("${controller.face_quality.value}%")
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.blockSizeHorizontal * 3,
-                        vertical: SizeConfig.blockSizeVertical * 3),
-                    child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                      style: TextStyle(
-                          fontSize: SizeConfig.blockSizeHorizontal * 4),
                     ),
-                  )
-                ],
-              ),
-            )
+                  );
+                case ResponseStatus.progress:
+                  return Center(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Container(
+                        height: SizeConfig.blockSizeVertical * 50,
+                        width: SizeConfig.screenWidth,
+                        decoration: BoxDecoration(color: Colors.white),
+                      ),
+                    ),
+                  );
+                case ResponseStatus.failed:
+                  return Center(
+                    child: Text(
+                      "Failed to load data",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                      ),
+                    ),
+                  );
+                case ResponseStatus.idle:
+                  return Container(); // Add idle state handling if needed
+                default:
+                  return Container();
+              }
+            }),
           ],
         ),
       ),

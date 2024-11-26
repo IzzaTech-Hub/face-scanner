@@ -152,7 +152,7 @@ class HomeView extends StatelessWidget {
             crossAxisCount: 2,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 5),
+            padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 2),
             children: [
               GestureDetector(
                 onTap: () {
