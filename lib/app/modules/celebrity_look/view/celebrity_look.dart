@@ -163,16 +163,45 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                               borderRadius: BorderRadius.circular(
                                   SizeConfig.blockSizeHorizontal * 4)),
                           child: Center(
-                            child: Text(
-                              "Top 100 social media influencers",
-                              style: TextStyle(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal),
+                            child: Obx(
+                              () => DropdownButton<String>(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                value: controller.selectedOption.value.isEmpty
+                                    ? null
+                                    : controller.selectedOption.value,
+                                hint: Text(
+                                  "Choose a Celebrity",
+                                  style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 3.3,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                items: controller.options.map((String option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option,
+                                    child: Center(
+                                      child: Text(
+                                        option,
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    3.3),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    controller.selectedOption.value = value;
+                                  }
+                                },
+                              ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
