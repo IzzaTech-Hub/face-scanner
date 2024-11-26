@@ -55,7 +55,6 @@ class HomeView extends StatelessWidget {
                       decoration: BoxDecoration(),
                       child: Image.asset(
                         AppImages.face_beauty,
-                        scale: 2,
                       ),
                     ),
                     Column(
@@ -87,11 +86,73 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.FACEREADING);
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
+              width: SizeConfig.blockSizeHorizontal * 92,
+              height: SizeConfig.blockSizeVertical * 15,
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade400, // Shadow color
+                      spreadRadius: 2, // Spread radius
+                      blurRadius: 10, // Blur radius
+                      offset: Offset(0, 5), // Offset in x and y direction
+                    ),
+                  ],
+                  gradient: LinearGradient(colors: [
+                    Color.fromARGB(255, 0, 201, 252),
+                    Color.fromARGB(255, 140, 223, 241),
+                  ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+                  borderRadius: BorderRadius.circular(
+                      SizeConfig.blockSizeHorizontal * 4)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(),
+                    child: Image.asset(
+                      AppImages.face_reading,
+                      height: SizeConfig.blockSizeVertical * 13,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: SizeConfig.blockSizeVertical * 10,
+                        width: SizeConfig.blockSizeHorizontal * 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 7),
+                        ),
+                        child: Image.asset(
+                          AppImages.analysis,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "Face Reading",
+                        style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 4,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
           GridView.count(
             crossAxisCount: 2,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 6),
+            padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 5),
             children: [
               GestureDetector(
                 onTap: () {
@@ -100,12 +161,12 @@ class HomeView extends StatelessWidget {
                 child: scanner_modes(Color(0xFFD06810), Color(0xFFCA986F),
                     AppImages.celebrity_look, "Looks like a", "Celebrity"),
               ),
-              scanner_modes(
-                  Color.fromARGB(255, 71, 216, 76),
-                  Color.fromARGB(255, 113, 209, 111),
-                  AppImages.facial_symmetry,
-                  "Facial Symmetery",
-                  ""),
+              // scanner_modes(
+              //     Color.fromARGB(255, 71, 216, 76),
+              //     Color.fromARGB(255, 113, 209, 111),
+              //     AppImages.facial_symmetry,
+              //     "Facial Symmetery",
+              //     ""),
               GestureDetector(
                 onTap: () {
                   Get.toNamed(Routes.BEAUTYSCORE);
@@ -117,29 +178,29 @@ class HomeView extends StatelessWidget {
                     "Beauty Score",
                     "Showdown"),
               ),
-              scanner_modes(
-                  Color.fromARGB(255, 0, 201, 252),
-                  Color.fromARGB(255, 140, 223, 241),
-                  AppImages.face_resemblance,
-                  "Facial",
-                  "Resemblance"),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.FACEREADING);
-                },
-                child: scanner_modes(
-                    Color(0xFF7E51FF),
-                    Color.fromARGB(255, 161, 134, 238),
-                    AppImages.face_reading,
-                    "Face Reading",
-                    ""),
-              ),
-              scanner_modes(
-                  Color.fromARGB(255, 236, 240, 14),
-                  Color.fromARGB(255, 228, 240, 102),
-                  AppImages.beauty_tips,
-                  "Beauty Tips",
-                  ""),
+              // scanner_modes(
+              // Color.fromARGB(255, 0, 201, 252),
+              // Color.fromARGB(255, 140, 223, 241),
+              //     AppImages.face_resemblance,
+              //     "Facial",
+              //     "Resemblance"),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.toNamed(Routes.FACEREADING);
+              //   },
+              //   child: scanner_modes(
+              //       Color(0xFF7E51FF),
+              //       Color.fromARGB(255, 161, 134, 238),
+              //       AppImages.face_reading,
+              //       "Face Reading",
+              //       ""),
+              // ),
+              // scanner_modes(
+              // Color.fromARGB(255, 236, 240, 14),
+              // Color.fromARGB(255, 228, 240, 102),
+              //     AppImages.beauty_tips,
+              //     "Beauty Tips",
+              //     ""),
             ],
           )
         ],

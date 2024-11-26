@@ -1,4 +1,4 @@
-package com.example.face_scanner
+package com.faceyoga.fitness.beautyscore.analysis
 
 import io.flutter.embedding.android.FlutterActivity
 
