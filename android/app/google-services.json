@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "492118983584",
+    "project_id": "face-scanner-b4dfb",
+    "storage_bucket": "face-scanner-b4dfb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492118983584:android:b43cadbc194f9516d65ac5",
+        "android_client_info": {
+          "package_name": "com.faceyoga.fitness.beautyscore.analysis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiKWwq0qFtEqKZZ0AuIGgnmbDdJBTq02Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
