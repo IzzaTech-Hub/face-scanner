@@ -26,6 +26,7 @@ class FaceBeautyAnalysisCtl extends GetxController {
   Rx<BeautyAnalysis?> beauty_analysis = Rx<BeautyAnalysis?>(null);
   // RxString imageUrl = "".obs;
   Rx<ResponseStatus> responseStatus = ResponseStatus.idle.obs;
+  // Rx<ResponseStatus> responseStatus = ResponseStatus.progress.obs;
   @override
   void onInit() {
     // TODO: implement onInit
