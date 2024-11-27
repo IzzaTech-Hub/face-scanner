@@ -205,11 +205,11 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                                 TextSpan(
                                                   text: " /10",
                                                   style: TextStyle(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          4,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        4,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -268,18 +268,181 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                       ),
                     ),
                   );
+
+                // Shimmer effect
                 case ResponseStatus.progress:
-                  return Center(
-                    child: Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical * 50,
-                        width: SizeConfig.screenWidth,
-                        decoration: BoxDecoration(color: Colors.white),
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 3),
+                      height: SizeConfig.blockSizeVertical * 50,
+                      width: SizeConfig.screenWidth,
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          // Row with Graph and List
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              // Graph on the left
+                              Center(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade300,
+                                      highlightColor: Colors.grey.shade100,
+                                      direction: ShimmerDirection.btt,
+                                      child: Graph(
+                                        size: SizeConfig.blockSizeVertical * 25,
+                                        color: Colors.teal,
+                                        progress: 0.5,
+                                        // controller
+                                        //         .beauty_analysis.value!.score *
+                                        //     0.1,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: SizeConfig.blockSizeVertical * 20,
+                                      width:
+                                          SizeConfig.blockSizeHorizontal * 33,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Beauty Score",
+                                            style: TextStyle(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                  4,
+                                            ),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                    text: "",
+                                                    // "${controller.beauty_analysis.value!.score}",
+                                                    style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                                .blockSizeHorizontal *
+                                                            8,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextSpan(
+                                                  text: " /10",
+                                                  style: TextStyle(
+                                                      fontSize: SizeConfig
+                                                              .blockSizeHorizontal *
+                                                          4,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // List on the right
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  simple_text("Gender"),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal * 10),
+                                  simple_text("Age"),
+                                  shimmer_effect(
+                                    SizeConfig.blockSizeHorizontal * 6,
+                                  ),
+                                  simple_text("Glasses"),
+                                  shimmer_effect(
+                                    SizeConfig.blockSizeHorizontal * 10,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  simple_text("Smile"),
+                                  shimmer_effect(
+                                    SizeConfig.blockSizeHorizontal * 9,
+                                  ),
+                                  simple_text("Ethnicity"),
+                                  shimmer_effect(
+                                    SizeConfig.blockSizeHorizontal * 13,
+                                  ),
+                                  simple_text("Face Quality"),
+                                  shimmer_effect(
+                                    SizeConfig.blockSizeHorizontal * 19,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // Dummy Text below
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.blockSizeHorizontal * 3,
+                                vertical: SizeConfig.blockSizeVertical * 4.5,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal * 90),
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal * 85),
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal *
+                                          75), // Shorter line
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal * 88),
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal *
+                                          78), // Shorter line
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal * 80),
+                                  verticalSpace(
+                                      SizeConfig.blockSizeVertical * 1),
+                                  shimmer_effect(
+                                      SizeConfig.blockSizeHorizontal *
+                                          55), // Much shorter line
+                                ],
+                              )),
+                        ],
                       ),
                     ),
                   );
+                // Center(
+                //   child: Shimmer.fromColors(
+                //     baseColor: Colors.grey.shade300,
+                //     highlightColor: Colors.grey.shade100,
+                //     child: Container(
+                //       height: SizeConfig.blockSizeVertical * 50,
+                //       width: SizeConfig.screenWidth,
+                //       decoration: BoxDecoration(color: Colors.white),
+                //     ),
+                //   ),
+                // );
                 case ResponseStatus.failed:
                   return Center(
                     child: Text(
@@ -298,6 +461,20 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
             }),
           ],
         ),
+      ),
+    );
+  }
+
+  Shimmer shimmer_effect(double width) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        height: SizeConfig.blockSizeVertical * 1,
+        width: width,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(4)),
       ),
     );
   }

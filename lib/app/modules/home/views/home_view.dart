@@ -18,8 +18,8 @@ class HomeView extends StatelessWidget {
               fontSize: SizeConfig.blockSizeHorizontal * 5,
               fontWeight: FontWeight.bold),
         ),
-        leading: Icon(Icons.menu),
-        actions: [Icon(Icons.question_mark_rounded)],
+        // leading: Icon(Icons.menu),
+        // actions: [Icon(Icons.question_mark_rounded)],
       ),
       body: Column(
         children: [
