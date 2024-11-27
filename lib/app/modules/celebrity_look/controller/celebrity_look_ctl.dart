@@ -19,6 +19,7 @@ class CelebrityLookCtl extends GetxController {
   Rx<CelebrityMatch?> celebrity_match = Rx<CelebrityMatch?>(null);
   RxString imageUrl = "".obs;
   Rx<ResponseStatus> responseStatus = ResponseStatus.idle.obs;
+  // Rx<ResponseStatus> responseStatus = ResponseStatus.progress.obs;
 
   RxBool isTrue = false.obs;
 

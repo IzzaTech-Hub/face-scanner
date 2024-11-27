@@ -303,22 +303,23 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                     );
 
                   case ResponseStatus.progress:
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical * 35,
-                        width: SizeConfig.blockSizeHorizontal * 70,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.blockSizeHorizontal * 6),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
+                    return Container(
+                      height: SizeConfig.blockSizeVertical * 35,
+                      width: SizeConfig.blockSizeHorizontal * 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.blockSizeHorizontal * 6),
+                      ),
+                      child: Column(
+                        children: [
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey.shade300,
+                            highlightColor: Colors.grey.shade100,
+                            child: Container(
                               margin: EdgeInsets.only(
-                                  top: SizeConfig.blockSizeVertical * 1),
+                                  top: SizeConfig.blockSizeVertical * 1,
+                                  bottom: SizeConfig.blockSizeVertical * 2),
                               height: SizeConfig.blockSizeVertical * 18,
                               width: SizeConfig.blockSizeHorizontal * 40,
                               decoration: BoxDecoration(
@@ -327,20 +328,38 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                                     SizeConfig.blockSizeHorizontal * 4),
                               ),
                             ),
-                            verticalSpace(SizeConfig.blockSizeVertical * 2),
-                            Container(
-                              height: 16,
-                              width: SizeConfig.blockSizeHorizontal * 50,
-                              color: Colors.grey,
-                            ),
-                            verticalSpace(SizeConfig.blockSizeVertical * 1),
-                            Container(
-                              height: 16,
-                              width: SizeConfig.blockSizeHorizontal * 40,
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
+                          ),
+
+                          shimmer_effect(
+                            "Name",
+                            SizeConfig.blockSizeHorizontal * 25,
+                          ),
+                          shimmer_effect(
+                            "Match Rate",
+                            SizeConfig.blockSizeHorizontal * 20,
+                          ),
+                          shimmer_effect(
+                            "Country",
+                            SizeConfig.blockSizeHorizontal * 15,
+                          ),
+                          shimmer_effect(
+                            "Career",
+                            SizeConfig.blockSizeHorizontal * 10,
+                          ),
+
+                          // verticalSpace(SizeConfig.blockSizeVertical * 2),
+                          // Container(
+                          //   height: 16,
+                          //   width: SizeConfig.blockSizeHorizontal * 50,
+                          //   color: Colors.grey,
+                          // ),
+                          // verticalSpace(SizeConfig.blockSizeVertical * 1),
+                          // Container(
+                          //   height: 16,
+                          //   width: SizeConfig.blockSizeHorizontal * 40,
+                          //   color: Colors.grey,
+                          // ),
+                        ],
                       ),
                     );
 
@@ -430,6 +449,37 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Padding shimmer_effect(String text, double width) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.blockSizeHorizontal * 4,
+          vertical: SizeConfig.blockSizeVertical * 0.2),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: SizeConfig.blockSizeHorizontal * 35,
+            child: Text(
+              text,
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3),
+            ),
+          ),
+          Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.grey.shade100,
+            child: Container(
+              height: SizeConfig.blockSizeVertical * 1.2,
+              width: width,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(2)),
+              child: Text(""),
+            ),
+          ),
+        ],
       ),
     );
   }
