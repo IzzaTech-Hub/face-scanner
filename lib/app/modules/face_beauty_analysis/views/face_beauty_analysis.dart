@@ -149,7 +149,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: SizeConfig.blockSizeVertical * 3),
-                      height: SizeConfig.blockSizeVertical * 50,
+                      // height: SizeConfig.blockSizeVertical * 50,
                       width: SizeConfig.screenWidth,
                       color: Colors.white,
                       child: Column(
@@ -230,9 +230,9 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                   simple_text("Age"),
                                   bold_text(
                                       "${controller.beauty_analysis.value!.age}"),
-                                  simple_text("Glass"),
+                                  simple_text("Glasses"),
                                   bold_text(
-                                      "${controller.beauty_analysis.value!.score}"),
+                                      "${controller.beauty_analysis.value!.glass ? "Yes" : "No"}"),
                                 ],
                               ),
                               Column(
@@ -243,7 +243,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                       "${controller.beauty_analysis.value!.smile}%"),
                                   simple_text("Ethnicity"),
                                   bold_text(
-                                      "${controller.beauty_analysis.value!.score}"),
+                                      "${controller.beauty_analysis.value!.ethnicity}"),
                                   simple_text("Face Quality"),
                                   bold_text(
                                       "${controller.beauty_analysis.value!.faceQuality}%"),
@@ -258,10 +258,10 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                               vertical: SizeConfig.blockSizeVertical * 3,
                             ),
                             child: Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                              "${controller.beauty_analysis.value!.face_description}",
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 4),
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                             ),
                           ),
                         ],

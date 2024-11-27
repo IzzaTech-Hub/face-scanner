@@ -15,16 +15,16 @@ class FaceBeautyAnalysisCtl extends GetxController {
   var selectedImage = Rx<File?>(null);
   RxInt selectedIndex = 0.obs;
   Rx<bool> isScanning = false.obs;
-  RxString score = "6.76".obs;
-  RxString gender = "Male".obs;
-  RxString smile = "6".obs;
-  RxString age = "26".obs;
-  RxString ethnicity = "-".obs;
-  RxString glass = "None".obs;
-  RxString face_quality = "64".obs;
+  // RxString score = "6.76".obs;
+  // RxString gender = "Male".obs;
+  // RxString smile = "6".obs;
+  // RxString age = "26".obs;
+  // RxString ethnicity = "-".obs;
+  // RxString glass = "None".obs;
+  // RxString face_quality = "64".obs;
 
   Rx<BeautyAnalysis?> beauty_analysis = Rx<BeautyAnalysis?>(null);
-  RxString imageUrl = "".obs;
+  // RxString imageUrl = "".obs;
   Rx<ResponseStatus> responseStatus = ResponseStatus.idle.obs;
   @override
   void onInit() {
@@ -46,7 +46,7 @@ class FaceBeautyAnalysisCtl extends GetxController {
       selectedImage.value = File(pickedFile.path);
       log("Picked Image");
       // startScanningImage(selectedImage.value!);
-      sendImageToGoogleAI(selectedImage.value!);
+      // sendImageToGoogleAI(selectedImage.value!);
     }
   }
 
@@ -57,16 +57,19 @@ class FaceBeautyAnalysisCtl extends GetxController {
         "Top 50 youtuber  from the region of Person in image";
 
     final SystemInstruction =
-        ''' You are an advance level facial analysis expert. You will be given an image of a person. you will have to extract the facial features of the person in image and on the basis of these features, try and find celebrity from $celebrityType who has closest resemblance with these facial features. Respond only in JSON format, following the structure below:
-{
-"score" : "<float>",                // Beauty Score
-   "gender" : <string>,            // Gender
-   "smile" : "<int>",             // smile
-   "age" : "<int>",              // age
-  // "ethnicity" : "<String>",     // Ethnicity
-  //  "glass" : "<String>",       // Glass  
-  "face_quality" : "<int>",   // Face quality
+        ''' You are an advance level facial analysis expert. You will be given an image of a person. 
+          You will have to analyze the image and give score and detect other features as given in json schema.
 
+
+{
+"score" : "<float>",                // Beauty Score out of 10.  consider overall facial features of the person while giving the score
+   "gender" : <string>,            // Gender
+   "smile" : "<int>",             // smile  how much person is smiling.
+   "age" : "<int>",              // age
+   "ethnicity" : "<String>",     // Ethnicity   
+   "glass" : "<bool>",       // Glass  check if wearing glasses or not
+  "face_quality" : "<number>",   // Face quality. get the overall quality of the face  in percentage
+    "face_description":  "<string>"   // Write 30-50 words describing overall best features in the face and negative features that causes to deduct score and quality of face.
 }
 ''';
 
@@ -88,8 +91,9 @@ class FaceBeautyAnalysisCtl extends GetxController {
             "gender",
             "smile",
             "age",
-            // "ethnicity",
-            // "glass",
+            "ethnicity",
+            "glass",
+            "face_description",
             "face_quality",
           ],
           properties: {
@@ -100,19 +104,22 @@ class FaceBeautyAnalysisCtl extends GetxController {
               SchemaType.string,
             ),
             "smile": Schema(
-              SchemaType.integer,
+              SchemaType.number,
             ),
             "age": Schema(
               SchemaType.integer,
             ),
-            // "ethnicity": Schema(
-            //   SchemaType.object,
-            // ),
-            // "glass": Schema(
-            //   SchemaType.object,
-            // ),
+            "ethnicity": Schema(
+              SchemaType.string,
+            ),
+            "glass": Schema(
+              SchemaType.boolean,
+            ),
             "face_quality": Schema(
               SchemaType.integer,
+            ),
+            "face_description": Schema(
+              SchemaType.string,
             ),
           },
         ),
@@ -135,11 +142,7 @@ class FaceBeautyAnalysisCtl extends GetxController {
       Map<String, dynamic> jsonMap = jsonDecode(response.text ?? '');
       log("jsonMap ${jsonMap}");
       beauty_analysis.value = BeautyAnalysis.fromJson(jsonMap);
-      imageUrl.value = await APIService()
-              .fetchImageUrl(beauty_analysis.value!.faceQuality) ??
-          "";
 
-      log("Image Url: ${imageUrl.value ?? ''}");
       responseStatus.value = ResponseStatus.success;
     } on Exception catch (e) {
       responseStatus.value = ResponseStatus.failed;

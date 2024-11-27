@@ -5,36 +5,36 @@ class BeautyAnalysis {
   final String gender;
   final String smile;
   final String age;
-  // final String ethnicity;
-  // final String glass;
+  final String ethnicity;
+  final bool glass;
   final String faceQuality;
+  final String face_description;
 
   BeautyAnalysis({
-    required double score,
-    required String gender,
-    required String smile,
-    required String age,
-    // required String ethnicity,
-    // required String glass,
-    required String faceQuality,
-  })  : score = score,
-        gender = gender,
-        smile = smile,
-        age = age,
-        // ethnicity = ethnicity.obs,
-        // glass = glass.obs,
-        faceQuality = faceQuality;
+    required this.ethnicity,
+    required this.glass,
+    required this.score,
+    required this.gender,
+    required this.smile,
+    required this.age,
+    required this.faceQuality,
+    required this.face_description,
+  });
 
   // Factory method to create a FaceBeautyAnalysis instance from JSON
   factory BeautyAnalysis.fromJson(Map<String, dynamic> json) {
     return BeautyAnalysis(
-      score: (json['score'] ?? 0.0),
+      score: (json['score'] ?? 0.0).toDouble(),
       gender: json['gender'] ?? '',
       smile: (json['smile'] ?? '').toString(),
       age: (json['age'] ?? '').toString(),
       // ethnicity: json['ethnicity'] ?? '',
       // glass: json['glass'] ?? '',
       faceQuality: (json['face_quality'] ?? '').toString(),
+
+      ethnicity: (json['ethnicity'] ?? '').toString(),
+      glass: (json['glass'] ?? false),
+      face_description: (json['face_description'] ?? '').toString(),
     );
   }
 
@@ -45,9 +45,10 @@ class BeautyAnalysis {
       'gender': gender,
       'smile': smile,
       'age': age,
-      // 'ethnicity': ethnicity,
-      // 'glass': glass,
+      'ethnicity': ethnicity,
+      'glass': glass,
       'face_quality': faceQuality,
+      'face_description': face_description,
     };
   }
 }

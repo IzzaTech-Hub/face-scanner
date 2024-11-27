@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/services/remoteconfig_services.dart';
 import 'package:face_scanner/firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     // DeviceOrientation.landscapeRight,
   ]);
+
+  RemoteConfigService().initialize();
   runApp(const MyApp());
 }
 
