@@ -46,6 +46,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
       log("Picked Image");
+      responseStatus.value = ResponseStatus.idle;
+
       // startScanningImage(selectedImage.value!);
       // sendImageToGoogleAI(selectedImage.value!);
     }

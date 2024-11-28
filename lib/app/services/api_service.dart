@@ -58,6 +58,16 @@ class APIService {
 
   bool _isImageLink(String url) {
     final imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
-    return imageExtensions.any((ext) => url.toLowerCase().endsWith(ext));
+    final excludedKeywords = ['instagram', 'facebook', 'twitter', 'linkedin'];
+
+    // Check if URL ends with a valid image extension
+    bool hasValidExtension =
+        imageExtensions.any((ext) => url.toLowerCase().endsWith(ext));
+
+    // Check if URL contains any excluded keywords
+    bool containsExcludedKeywords =
+        excludedKeywords.any((keyword) => url.toLowerCase().contains(keyword));
+
+    return hasValidExtension && !containsExcludedKeywords;
   }
 }
