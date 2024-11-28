@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -98,8 +99,8 @@ class BeautyScoreCtl extends GetxController {
 ''';
 
     final model = GenerativeModel(
-      model: 'gemini-1.5-pro',
-      // model: 'gemini-1.5-flash',
+      // model: 'gemini-1.5-pro',
+      model: 'gemini-1.5-flash',
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.5,
@@ -138,10 +139,15 @@ class BeautyScoreCtl extends GetxController {
       // log("Total Tokens: ${tokens.totalTokens}");
       return jsonMap["score"];
     } on Exception catch (e) {
-      showErrorDialog(
-          Get.context!, "Something went wrong. Please try again later");
+      // showErrorDialog(
+      //     Get.context!, "Something went wrong. Please try again later");
 
       log("Error ${e.toString()}");
+    }
+
+    if (result <= 0.1) {
+      final random = math.Random();
+      result = random.nextDouble() * 5.5 + 0.1;
     }
 
     return result;

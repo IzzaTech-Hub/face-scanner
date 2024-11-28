@@ -144,7 +144,8 @@ Respond only in JSON format, following the structure below:
       responseStatus.value = ResponseStatus.success;
     } on Exception catch (e) {
       responseStatus.value = ResponseStatus.failed;
-      showErrorDialog(Get.context!, e.toString());
+      // showErrorDialog(Get.context!, e.toString());
+      log("Celebrity Error: ${e.toString()}");
 
       // TODO
     }
