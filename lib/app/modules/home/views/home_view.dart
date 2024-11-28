@@ -12,8 +12,9 @@ class HomeView extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
-          "Beauty Scanner",
+          "Face Scanner",
           style: TextStyle(
               fontSize: SizeConfig.blockSizeHorizontal * 5,
               fontWeight: FontWeight.bold),
