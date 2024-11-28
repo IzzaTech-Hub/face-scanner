@@ -18,6 +18,9 @@ class AppImages {
   static const eyes = "assets/images/eyes.png";
   static const eyebrows = "assets/images/eyebrows.png";
 
+  // Main Icon
+  static const main_icon = "assets/icon/main_icon.png";
+
 // SVG
 
   static const scanner = "assets/svg/scanner.svg";

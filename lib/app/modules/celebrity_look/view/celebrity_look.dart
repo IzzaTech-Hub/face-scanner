@@ -27,7 +27,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
               Get.back();
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),
-        actions: [Icon(Icons.question_mark_rounded)],
+        // actions: [Icon(Icons.question_mark_rounded)],
       ),
       body: SingleChildScrollView(
         child: Container(
