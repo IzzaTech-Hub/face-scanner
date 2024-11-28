@@ -28,12 +28,12 @@ class CelebrityLookCtl extends GetxController {
   RxList<String> options = [
     "Top 100 social media influencers",
     "Top 100 best football players",
-    "richest people in the World",
+    "Richest people in the World",
     "Top 100 Beauty Women",
     "Top 100 Handsome Men",
-    "bodybuilder in the World",
-    "supermodels in the World",
-    "contemporary basketballer",
+    "Bodybuilder in the World",
+    "Supermodels in the World",
+    "Contemporary basketballer",
     "Top Asian influencers",
   ].obs;
 
@@ -80,8 +80,8 @@ Respond only in JSON format, following the structure below:
 ''';
 
     final model = GenerativeModel(
-      model: 'gemini-1.5-pro',
-      // model: 'gemini-1.5-flash',
+      // model: 'gemini-1.5-pro',
+      model: 'gemini-1.5-flash',
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.8,

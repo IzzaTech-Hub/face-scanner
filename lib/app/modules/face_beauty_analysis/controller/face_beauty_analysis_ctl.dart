@@ -77,8 +77,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
 ''';
 
     final model = GenerativeModel(
-      model: 'gemini-1.5-pro',
       // model: 'gemini-1.5-flash',
+      model: 'gemini-1.5-flash',
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.5,
@@ -149,7 +149,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
       responseStatus.value = ResponseStatus.success;
     } on Exception catch (e) {
       responseStatus.value = ResponseStatus.failed;
-      showErrorDialog(Get.context!, e.toString());
+      // showErrorDialog(Get.context!, e.toString());
+      log("FaceBeauty Error: ${e.toString()}");
 
       // TODO
     }
