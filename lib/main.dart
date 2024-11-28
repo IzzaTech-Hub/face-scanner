@@ -20,7 +20,7 @@ Future<void> main() async {
     // DeviceOrientation.landscapeRight,
   ]);
 
-  RemoteConfigService().initialize();
+  // RemoteConfigService().initialize();
   runApp(const MyApp());
 }
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // analytics.setAnalyticsCollectionEnabled(kReleaseMode);
+    analytics.setAnalyticsCollectionEnabled(kReleaseMode);
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
