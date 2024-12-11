@@ -224,28 +224,28 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  simple_text("Gender"),
-                                  bold_text(
+                                  bold_text("Gender"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.gender}"),
-                                  simple_text("Age"),
-                                  bold_text(
+                                  bold_text("Age"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.age}"),
-                                  simple_text("Glasses"),
-                                  bold_text(
+                                  bold_text("Glasses"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.glass ? "Yes" : "No"}"),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  simple_text("Smile"),
-                                  bold_text(
+                                  bold_text("Smile"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.smile}%"),
-                                  simple_text("Ethnicity"),
-                                  bold_text(
+                                  bold_text("Ethnicity"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.ethnicity}"),
-                                  simple_text("Face Quality"),
-                                  bold_text(
+                                  bold_text("Face Quality"),
+                                  simple_text(
                                       "${controller.beauty_analysis.value!.faceQuality}%"),
                                 ],
                               ),
@@ -356,14 +356,14 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  simple_text("Gender"),
+                                  bold_text("Gender"),
                                   shimmer_effect(
                                       SizeConfig.blockSizeHorizontal * 10),
-                                  simple_text("Age"),
+                                  bold_text("Age"),
                                   shimmer_effect(
                                     SizeConfig.blockSizeHorizontal * 6,
                                   ),
-                                  simple_text("Glasses"),
+                                  bold_text("Glasses"),
                                   shimmer_effect(
                                     SizeConfig.blockSizeHorizontal * 10,
                                   ),
@@ -372,15 +372,15 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  simple_text("Smile"),
+                                  bold_text("Smile"),
                                   shimmer_effect(
                                     SizeConfig.blockSizeHorizontal * 9,
                                   ),
-                                  simple_text("Ethnicity"),
+                                  bold_text("Ethnicity"),
                                   shimmer_effect(
                                     SizeConfig.blockSizeHorizontal * 13,
                                   ),
-                                  simple_text("Face Quality"),
+                                  bold_text("Face Quality"),
                                   shimmer_effect(
                                     SizeConfig.blockSizeHorizontal * 19,
                                   ),
