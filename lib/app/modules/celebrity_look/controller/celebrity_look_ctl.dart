@@ -140,7 +140,7 @@ Respond only in JSON format, following the structure below:
               .fetchImageUrl(celebrity_match.value!.celebrityName) ??
           "";
 
-      log("Image Url: ${imageUrl.value ?? ''}");
+      log("Image Url: ${imageUrl.value}");
       responseStatus.value = ResponseStatus.success;
     } on Exception catch (e) {
       responseStatus.value = ResponseStatus.failed;
