@@ -128,6 +128,7 @@ class FaceReadingCtl extends GetxController
       log("jsonMap ${jsonMap}");
     } on Exception catch (e) {
       Get.back();
+
       // showErrorDialog(
       //     Get.context!, "Something went wrong. Please try again later");
       responseStatus.value = ResponseStatus.failed;
