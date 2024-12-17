@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16)),
-                      backgroundColor: Colors.teal,
+                      backgroundColor: AppColors.primaryColor,
                       child: Icon(
                         Icons.add_photo_alternate_outlined,
                         color: Colors.white,
@@ -127,7 +128,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                       height: SizeConfig.blockSizeVertical * 6.5,
                       width: SizeConfig.blockSizeHorizontal * 70,
                       decoration: BoxDecoration(
-                          color: Colors.teal.shade400,
+                          color: AppColors.primaryColorShade400,
                           borderRadius: BorderRadius.circular(
                               SizeConfig.blockSizeHorizontal * 4)),
                       child: Center(
@@ -166,7 +167,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                   children: [
                                     Graph(
                                       size: SizeConfig.blockSizeVertical * 25,
-                                      color: Colors.teal,
+                                      color: AppColors.primaryColor,
                                       progress: controller
                                               .beauty_analysis.value!.score *
                                           0.1,
@@ -176,7 +177,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                       width:
                                           SizeConfig.blockSizeHorizontal * 33,
                                       decoration: BoxDecoration(
-                                          color: Colors.teal.shade100,
+                                          color: AppColors.primaryColorShade100,
                                           shape: BoxShape.circle),
                                       child: Column(
                                         mainAxisAlignment:
@@ -296,7 +297,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                                       direction: ShimmerDirection.btt,
                                       child: Graph(
                                         size: SizeConfig.blockSizeVertical * 25,
-                                        color: Colors.teal,
+                                        color: AppColors.primaryColor,
                                         progress: 0.5,
                                         // controller
                                         //         .beauty_analysis.value!.score *

@@ -1,4 +1,5 @@
 import 'package:face_scanner/app/modules/splash_screen/controller/splash_screen_ctl.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class SplashScreen extends GetView<SplashController> {
                               child: LinearProgressIndicator(
                                   minHeight: 6,
                                   backgroundColor: Colors.grey.shade100,
-                                  color: Colors.teal),
+                                  color: AppColors.primaryColor),
                             ),
                           ))
                       // Container(

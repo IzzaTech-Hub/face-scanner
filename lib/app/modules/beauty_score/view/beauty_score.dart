@@ -1,5 +1,6 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                     height: SizeConfig.blockSizeVertical * 7.5,
                     width: SizeConfig.blockSizeHorizontal * 80,
                     decoration: BoxDecoration(
-                      color: Colors.teal,
+                      color: AppColors.primaryColor,
                       borderRadius: BorderRadius.circular(
                         SizeConfig.blockSizeHorizontal * 4,
                       ),

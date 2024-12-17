@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                     nav_bar(AppImages.nose, "Nose"),
                     nav_bar(AppImages.eyebrows, "EyeBrows"),
                   ],
-                  selectedItemColor: Colors.teal,
+                  selectedItemColor: AppColors.primaryColor,
                   unselectedItemColor: Colors.grey,
                 )
               : Container(
@@ -125,7 +126,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16)),
-                      backgroundColor: Colors.teal,
+                      backgroundColor: AppColors.primaryColor,
                       child: Icon(
                         Icons.add_photo_alternate_outlined,
                         color: Colors.white,
