@@ -32,7 +32,7 @@ List<String> top100Influencers = [
   "Jennifer Lopez",
   "Gigi Hadid",
   "Huda Kattan",
-  "Chris Hemsworth",
+  // "Chris Hemsworth",
   "Emma Watson",
   "Deepika Padukone",
   "Will Smith",
