@@ -11,6 +11,7 @@ abstract class Routes {
   static const BEAUTYSCORERESULT = _Paths.BEAUTYSCORERESULT;
   static const FACEBEAUTYANALYSIS = _Paths.FACEBEAUTYANALYSIS;
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
+  static const SETTINGSVIEW = _Paths.SETTINGSVIEW;
   static const TEMP = _Paths.TEMP;
 }
 
@@ -22,5 +23,6 @@ abstract class _Paths {
   static const BEAUTYSCORERESULT = '/BEAUTYSCORERESULT';
   static const FACEBEAUTYANALYSIS = '/FACEBEAUTYANALYSIS';
   static const SPLASHSCREEN = '/SPLASHSCREEN';
+  static const SETTINGSVIEW = '/SETTINGSVIEW';
   static const TEMP = '/temp';
 }

@@ -20,7 +20,17 @@ class HomeView extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
         // leading: Icon(Icons.menu),
-        // actions: [Icon(Icons.question_mark_rounded)],
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 2),
+            child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.SETTINGSVIEW);
+                },
+                child: Icon(Icons.settings_sharp)),
+          )
+        ],
       ),
       body: Column(
         children: [
