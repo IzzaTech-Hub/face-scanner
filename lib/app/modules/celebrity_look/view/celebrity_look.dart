@@ -88,8 +88,8 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                   },
                   child: Container(
                     margin:
-                        EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
-                    height: SizeConfig.blockSizeVertical * 42,
+                        EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
+                    height: SizeConfig.blockSizeVertical * 37,
                     width: SizeConfig.blockSizeHorizontal * 70,
                     decoration: BoxDecoration(
                         boxShadow: [
@@ -207,7 +207,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                   ),
                 ),
               ),
-              verticalSpace(SizeConfig.blockSizeVertical * 5),
+              verticalSpace(SizeConfig.blockSizeVertical * 1),
               Obx(() => controller.selectedImage.value != null &&
                       controller.responseStatus.value == ResponseStatus.idle
                   ? GestureDetector(
@@ -219,7 +219,8 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                         height: SizeConfig.blockSizeVertical * 6.5,
                         width: SizeConfig.blockSizeHorizontal * 70,
                         decoration: BoxDecoration(
-                            color: Colors.grey.shade400,
+                            color: Theme.of(context).primaryColor,
+                            // color: Colors.grey.shade400,
                             borderRadius: BorderRadius.circular(
                                 SizeConfig.blockSizeHorizontal * 4)),
                         child: Center(
@@ -239,67 +240,100 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
               Obx(() {
                 switch (controller.responseStatus.value) {
                   case ResponseStatus.success:
-                    return Container(
-                      height: SizeConfig.blockSizeVertical * 35,
-                      width: SizeConfig.blockSizeHorizontal * 70,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400, // Shadow color
-                            spreadRadius: 2, // Spread radius
-                            blurRadius: 10, // Blur radius
-                            offset: Offset(0, 5), // Offset in x and y direction
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(
-                            SizeConfig.blockSizeHorizontal * 6),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: SizeConfig.blockSizeVertical * 1),
-                            height: SizeConfig.blockSizeVertical * 18,
-                            width: SizeConfig.blockSizeHorizontal * 40,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.blockSizeHorizontal * 4),
-                            ),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: "${controller.imageUrl.value}",
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        SizeConfig.blockSizeHorizontal * 6,
-                                    vertical: SizeConfig.blockSizeVertical * 6),
-                                child: CircularProgressIndicator(
-                                    value: downloadProgress.progress),
+                    return Column(
+                      children: [
+                        Container(
+                          height: SizeConfig.blockSizeVertical * 35,
+                          width: SizeConfig.blockSizeHorizontal * 70,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade400, // Shadow color
+                                spreadRadius: 2, // Spread radius
+                                blurRadius: 10, // Blur radius
+                                offset:
+                                    Offset(0, 5), // Offset in x and y direction
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.blockSizeHorizontal * 6),
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: SizeConfig.blockSizeVertical * 1),
+                                height: SizeConfig.blockSizeVertical * 18,
+                                width: SizeConfig.blockSizeHorizontal * 40,
+                                decoration: BoxDecoration(
+                                  // color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.blockSizeHorizontal * 4),
+                                ),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl: "${controller.imageUrl.value}",
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            SizeConfig.blockSizeHorizontal * 6,
+                                        vertical:
+                                            SizeConfig.blockSizeVertical * 6),
+                                    child: CircularProgressIndicator(
+                                        value: downloadProgress.progress),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              ),
+                              verticalSpace(SizeConfig.blockSizeVertical * 2),
+                              Obx(() => controller.celebrity_match.value != null
+                                  ? Column(
+                                      children: [
+                                        bio_data("Name",
+                                            "${controller.celebrity_match.value!.celebrityName}"),
+                                        bio_data("Match Rate",
+                                            "${controller.celebrity_match.value!.matchPercentage}%"),
+                                        bio_data("Country",
+                                            "${controller.celebrity_match.value!.country}"),
+                                        bio_data("Career",
+                                            "${controller.celebrity_match.value!.profession}"),
+                                      ],
+                                    )
+                                  : Container()),
+                            ],
+                          ),
+                        ),
+                        verticalSpace(SizeConfig.blockSizeVertical * 2),
+                        GestureDetector(
+                          onTap: () {
+                            controller.sendImageToGoogleAI(
+                                controller.selectedImage.value!);
+                          },
+                          child: Container(
+                            height: SizeConfig.blockSizeVertical * 6.5,
+                            width: SizeConfig.blockSizeHorizontal * 70,
+                            decoration: BoxDecoration(
+                                color: Theme.of(Get.context!).primaryColor,
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.blockSizeHorizontal * 4)),
+                            child: Center(
+                              child: Text(
+                                "Try Again",
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 5,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
-                          verticalSpace(SizeConfig.blockSizeVertical * 2),
-                          Obx(() => controller.celebrity_match.value != null
-                              ? Column(
-                                  children: [
-                                    bio_data("Name",
-                                        "${controller.celebrity_match.value!.celebrityName}"),
-                                    bio_data("Match Rate",
-                                        "${controller.celebrity_match.value!.matchPercentage}%"),
-                                    bio_data("Country",
-                                        "${controller.celebrity_match.value!.country}"),
-                                    bio_data("Career",
-                                        "${controller.celebrity_match.value!.profession}"),
-                                  ],
-                                )
-                              : Container()),
-                        ],
-                      ),
+                        ),
+                        verticalSpace(SizeConfig.blockSizeVertical * 2),
+                      ],
                     );
 
                   case ResponseStatus.progress:

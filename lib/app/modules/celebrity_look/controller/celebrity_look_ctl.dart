@@ -55,7 +55,7 @@ class CelebrityLookCtl extends GetxController {
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
 
-      sendImageToGoogleAI(selectedImage.value!);
+      // sendImageToGoogleAI(selectedImage.value!);
     }
   }
 
