@@ -21,6 +21,15 @@ class HomeView extends StatelessWidget {
         ),
         // leading: Icon(Icons.menu),
         actions: [
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.GEMSVIEW);
+            },
+            child: Image.asset(
+              AppImages.gems,
+              height: SizeConfig.blockSizeVertical * 3,
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.blockSizeHorizontal * 2),
