@@ -1,5 +1,7 @@
 import 'package:face_scanner/app/modules/gems_view/controller/gems_view_ctl.dart';
+import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
 import 'package:face_scanner/app/utills/colors.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class GemsView extends GetView<GemsViewController> {
         centerTitle: true,
         title: Text(
           'Get GEMS',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         leading: GestureDetector(
             onTap: () {
@@ -101,6 +103,8 @@ class GemsView extends GetView<GemsViewController> {
         // ElevatedButton(onPressed: (){}, child: Text("Watch Interstitial AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)")),
         GestureDetector(
           onTap: () {
+            AppLovinProvider.instance
+                .showInterstitial(controller.increase_reward_gems);
             // AdMobAdsProvider.instance
             //     .showInterstitialAd(controller.increase_inter_gems);
           },
@@ -116,8 +120,8 @@ class GemsView extends GetView<GemsViewController> {
             ),
             child: Center(
                 child: Text(
-              // "Watch Interstitial AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)", //! Commented by jamal! //
-              "Watch Interstitial AD (GEMS)",
+              "Watch Interstitial AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)", //! Commented by jamal! //
+              // "Watch Interstitial AD (GEMS)",
               style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4),
             )),
           ),
@@ -127,6 +131,8 @@ class GemsView extends GetView<GemsViewController> {
         ),
         GestureDetector(
           onTap: () {
+            AppLovinProvider.instance
+                .showRewardedAd(controller.increase_reward_gems());
             // AdMobAdsProvider.instance
             //     .ShowRewardedAd(controller.increase_reward_gems);
           },

@@ -1,7 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
@@ -43,6 +45,13 @@ class FaceReading extends GetView<FaceReadingCtl> {
               Get.back();
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 2),
+            child: gems_widget(),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

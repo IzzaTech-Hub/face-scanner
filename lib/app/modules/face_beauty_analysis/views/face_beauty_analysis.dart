@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/utills/colors.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
+import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,27 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
               Get.back();
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 2),
+            child: gems_widget(),
+          )
+
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.toNamed(Routes.GEMSVIEW);
+          //   },
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(
+          //         horizontal: SizeConfig.blockSizeHorizontal * 2),
+          //     child: Image.asset(
+          //       AppImages.gems,
+          //       height: SizeConfig.blockSizeVertical * 3,
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -132,12 +155,41 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                           borderRadius: BorderRadius.circular(
                               SizeConfig.blockSizeHorizontal * 4)),
                       child: Center(
-                        child: Text(
-                          "Analyze Beauty",
-                          style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 5,
-                              // fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Analyze Beauty ",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 5,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "(${GEMS_RATE.FaceBeautyGems} x ",
+                                  style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 5,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Image.asset(
+                                  AppImages.gems,
+                                  height: SizeConfig.blockSizeVertical * 2.5,
+                                ),
+                                Text(
+                                  ")",
+                                  style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 5,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),

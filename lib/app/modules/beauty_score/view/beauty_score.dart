@@ -1,6 +1,8 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,13 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
               Get.back();
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 2),
+            child: gems_widget(),
+          )
+        ],
       ),
       body: Row(
         children: [
@@ -73,14 +82,39 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                         SizeConfig.blockSizeHorizontal * 4,
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        "Compare",
-                        style: TextStyle(
-                          fontSize: SizeConfig.blockSizeHorizontal * 5,
-                          color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Compare",
+                          style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 5,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                        Row(
+                          children: [
+                            Text(
+                              " (${GEMS_RATE.BeautyScoreGems} x ",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 5,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Image.asset(
+                              AppImages.gems,
+                              height: SizeConfig.blockSizeVertical * 2.5,
+                            ),
+                            Text(
+                              ")",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 5,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 )

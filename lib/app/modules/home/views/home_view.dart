@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
@@ -21,15 +22,7 @@ class HomeView extends StatelessWidget {
         ),
         // leading: Icon(Icons.menu),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.GEMSVIEW);
-            },
-            child: Image.asset(
-              AppImages.gems,
-              height: SizeConfig.blockSizeVertical * 3,
-            ),
-          ),
+          gems_widget(),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.blockSizeHorizontal * 2),

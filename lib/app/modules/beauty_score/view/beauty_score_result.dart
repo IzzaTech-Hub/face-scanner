@@ -1,4 +1,6 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,13 @@ class BeautyScoreResult extends GetView<BeautyScoreCtl> {
               Icons.arrow_back_ios_new_rounded,
               color: Colors.white,
             )),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 2),
+            child: gems_widget(),
+          )
+        ],
       ),
       body: Column(
         children: [

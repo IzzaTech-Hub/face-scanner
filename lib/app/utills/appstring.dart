@@ -11,17 +11,17 @@ class AppStrings {
   static const MAX_CHAT_TOKKENS = 400;
 
   // static const MAX_BANNER_ID = "0e743aaec215bf86";
-  static const MAX_BANNER_ID = "sds";
+  static const MAX_BANNER_ID = "9c081761c0e6dbf4";
 
   // static const MAX_INTER_ID = " 93a27328d660cb3c";
-  static const MAX_INTER_ID = " sdsd";
+  static const MAX_INTER_ID = "873fa9a3465dc92c";
 
   static const MAX_APPOPEN_ID = "sdsd";
 
   // static const MAX_MREC_ID = "b33ca2ae060f13e1";
-  static const MAX_MREC_ID = "sd";
+  static const MAX_MREC_ID = "9b94d2ecb20f14d4";
 
-  static const MAX_Reward_ID = "sdsd";
+  static const MAX_Reward_ID = "7e44d63a15247629";
 
   static const MAX_SDK =
       "aRDMGbWzwEWwvtKeNdJsHwxEn46w01GNDRaxtR7ShTArDJv5nR9rzFS-Emmb6e9epRPaiGUXRSM9NGeORoZM5L";
