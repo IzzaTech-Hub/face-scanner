@@ -2,6 +2,8 @@ import 'package:face_scanner/app/modules/beauty_score/binding/beauty_score_bindi
 import 'package:face_scanner/app/modules/celebrity_look/binding/celebrity_look_binding.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/binding/face_beauty_analysis_binding.dart';
 import 'package:face_scanner/app/modules/face_reading/binding/face_reading_binding.dart';
+import 'package:face_scanner/app/modules/gems_view/binding/gems_view_binding.dart';
+import 'package:face_scanner/app/modules/gems_view/view/gems_view.dart';
 import 'package:face_scanner/app/modules/home/binding/home_view_binding.dart';
 import 'package:face_scanner/app/modules/beauty_score/view/beauty_score.dart';
 import 'package:face_scanner/app/modules/beauty_score/view/beauty_score_result.dart';
@@ -67,5 +69,9 @@ class AppPages {
         name: _Paths.SETTINGSVIEW,
         page: () => SettingsView(),
         binding: SettingsBinding()),
+    GetPage(
+        name: _Paths.GEMSVIEW,
+        page: () => GemsView(),
+        binding: GemsViewBinding()),
   ];
 }
