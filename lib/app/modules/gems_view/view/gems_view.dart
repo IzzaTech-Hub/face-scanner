@@ -120,7 +120,7 @@ class GemsView extends GetView<GemsViewController> {
             ),
             child: Center(
                 child: Text(
-              "Watch Interstitial AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)", //! Commented by jamal! //
+              "Watch Short Video AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)", //! Commented by jamal! //
               // "Watch Interstitial AD (GEMS)",
               style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4),
             )),
@@ -149,7 +149,7 @@ class GemsView extends GetView<GemsViewController> {
             child: Center(
                 child: Text(
               // "Watch Video AD (${GEMS_RATE.REWARD_INCREAES_GEMS_RATE} GEMS)", //! Commented by jamal! //
-              "Watch Video AD (GEMS)",
+              "Watch Long Video AD (${GEMS_RATE.REWARD_INCREAES_GEMS_RATE} GEMS )",
               style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4),
             )),
           ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/services/remoteconfig_services.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     await RemoteConfigService().initialize();
+    AppLovinProvider.instance.init();
 
     // AppLovinProvider.instance.init();
     Timer? timer;

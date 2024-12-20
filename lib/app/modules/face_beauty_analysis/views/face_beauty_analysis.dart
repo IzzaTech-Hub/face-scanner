@@ -317,6 +317,64 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                               textAlign: TextAlign.left,
                             ),
                           ),
+
+                          GestureDetector(
+                            onTap: () {
+                              controller.sendImageToGoogleAI(
+                                  controller.selectedImage.value!);
+                            },
+                            child: Container(
+                              height: SizeConfig.blockSizeVertical * 6.5,
+                              width: SizeConfig.blockSizeHorizontal * 70,
+                              decoration: BoxDecoration(
+                                  color: AppColors.primaryColorShade400,
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.blockSizeHorizontal * 4)),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Try Again ",
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  5,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "(${GEMS_RATE.FaceBeautyGems} x ",
+                                          style: TextStyle(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                  5,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        Image.asset(
+                                          AppImages.gems,
+                                          height: SizeConfig.blockSizeVertical *
+                                              2.5,
+                                        ),
+                                        Text(
+                                          ")",
+                                          style: TextStyle(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                  5,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
