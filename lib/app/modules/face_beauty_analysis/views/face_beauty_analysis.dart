@@ -146,8 +146,17 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                     controller.responseStatus.value == ResponseStatus.idle
                 ? GestureDetector(
                     onTap: () {
-                      controller
-                          .sendImageToGoogleAI(controller.selectedImage.value!);
+                      if (GEMS_RATE.remianingGems.value >=
+                          GEMS_RATE.FaceBeautyGems) {
+                        controller.sendImageToGoogleAI(
+                            controller.selectedImage.value!);
+                      } else {
+                        // Show a toast message for insufficient gems
+                        HelpingMethods.instance.ShowNoGemsToast();
+                        Get.toNamed(Routes.GEMSVIEW);
+                      }
+                      // controller
+                      //     .sendImageToGoogleAI(controller.selectedImage.value!);
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical * 6.5,

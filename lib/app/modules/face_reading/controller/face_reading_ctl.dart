@@ -46,7 +46,7 @@ class FaceReadingCtl extends GetxController
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
       log("Picked Image");
-      startScanningImage(selectedImage.value!);
+      // startScanningImage(selectedImage.value!);
     }
   }
 

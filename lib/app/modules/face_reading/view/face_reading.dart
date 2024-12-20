@@ -5,6 +5,8 @@ import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
+import 'package:face_scanner/app/utills/helping_methods.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -158,6 +160,68 @@ class FaceReading extends GetView<FaceReadingCtl> {
                       child: Text(
                         controller.selectedFeature.value,
                         style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ),
+                  )
+                : Container()),
+            Obx(() => controller.selectedImage.value != null &&
+                    controller.responseStatus.value == ResponseStatus.idle
+                ? GestureDetector(
+                    onTap: () {
+                      if (GEMS_RATE.remianingGems.value >=
+                          GEMS_RATE.FaceReadingGems) {
+                        controller.startScanningImage(
+                            controller.selectedImage.value!);
+                        (controller.selectedImage.value!);
+                      } else {
+                        // Show a toast message for insufficient gems
+                        HelpingMethods.instance.ShowNoGemsToast();
+                        Get.toNamed(Routes.GEMSVIEW);
+                      }
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical * 6.5,
+                      width: SizeConfig.blockSizeHorizontal * 70,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          // color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 4)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Start Reading",
+                            style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 5,
+                                // fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                " (${GEMS_RATE.FaceReadingGems} x ",
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 5,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Image.asset(
+                                AppImages.gems,
+                                height: SizeConfig.blockSizeVertical * 2.5,
+                              ),
+                              Text(
+                                ")",
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 5,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   )
