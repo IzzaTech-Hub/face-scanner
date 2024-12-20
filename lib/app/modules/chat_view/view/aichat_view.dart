@@ -34,8 +34,12 @@
 // }
 
 import 'dart:io';
+import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
+import 'package:face_scanner/app/utills/helping_methods.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +153,9 @@ class _ChatWidgetState extends State<ChatWidget> {
         responseMimeType: 'text/plain',
       ),
       systemInstruction: Content.system(
-          'You are an expert dietician. Generate your response as short as posible and to the point. no need to explain every thing only the necessary elements that are being asked'),
+          "You are a dedicated beauty coach. Your sole purpose is to provide expert beauty advice, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. If a query is unrelated to beauty, politely but firmly decline to answer while keeping the conversation focused on beauty. Do not engage in off-topic discussions under any circumstances."
+          // 'You are an expert dietician. Generate your response as short as posible and to the point. no need to explain every thing only the necessary elements that are being asked'
+          ),
     );
     _chat = _model.startChat();
   }
@@ -213,9 +219,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                 : ListView(
                     children: const [
                       Text(
-                        'No API key found. Please provide an API Key using '
-                        "'--dart-define' to set the 'API_KEY' declaration.",
-                      ),
+                          "Taking a quick pause. Refreshing things for you! 🌈⏳"
+                          // 'No API key found. Please provide an API Key using '
+                          // "'--dart-define' to set the 'API_KEY' declaration.",
+                          ),
                     ],
                   ),
           ),
@@ -277,9 +284,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Icon(Icons.send, size: 30, color: AppColors.primaryColor),
+                      // Icon(Icons.send, size: 30, color: AppColors.primaryColor),
+                      IconButton(
+                        onPressed: () async {
+                          _sendChatMessage(_textController.text);
+                        },
+                        icon: Icon(Icons.send,
+                            size: 30, color: AppColors.primaryColor),
+                      ),
                       Positioned(
-                        top: -5,
+                        top: 3,
                         right: -5,
                         child: Container(
                           padding: EdgeInsets.all(4),
@@ -288,7 +302,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Text(
-                            '5',
+                            'x${GEMS_RATE.BeautyCoach}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 10,
@@ -394,6 +408,20 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   Future<void> _sendChatMessage(String message) async {
+    print("Send Chat..");
+    if (GEMS_RATE.remianingGems.value >= GEMS_RATE.BeautyCoach) {
+      print("Gems Available.");
+    } else {
+      print("Gems Not Available.");
+
+      // Show a toast message for insufficient gems
+      HelpingMethods.instance.ShowNoGemsToast();
+      Get.toNamed(Routes.GEMSVIEW);
+      return;
+    }
+
+    print("Sending message..");
+
     setState(() {
       _loading = true;
     });
@@ -412,6 +440,11 @@ class _ChatWidgetState extends State<ChatWidget> {
           _showError('No response from API.');
           return;
         } else {
+          /////////////
+          ///
+          HomeViewCtl homeViewCtl = Get.find();
+          homeViewCtl.decreaseGEMS(GEMS_RATE.BeautyCoach);
+
           setState(() {
             _loading = false;
             _scrollDown();

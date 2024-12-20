@@ -9,5 +9,6 @@ class GEMS_RATE {
   static const FaceReadingGems = 4;
   static const CelebrityLookGems = 6;
   static const BeautyScoreGems = 10;
+  static const BeautyCoach = 2;
   static RxInt remianingGems = FREE_GEMS.obs;
 }
