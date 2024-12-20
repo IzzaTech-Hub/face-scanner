@@ -4,6 +4,7 @@ import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/celebrity_look/controller/celebrity_look_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/helping_methods.dart';
 import 'package:face_scanner/app/utills/images.dart';
@@ -372,21 +373,86 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                             height: SizeConfig.blockSizeVertical * 6.5,
                             width: SizeConfig.blockSizeHorizontal * 70,
                             decoration: BoxDecoration(
-                                color: Theme.of(Get.context!).primaryColor,
+                                color: AppColors.primaryColorShade400,
                                 borderRadius: BorderRadius.circular(
                                     SizeConfig.blockSizeHorizontal * 4)),
                             child: Center(
-                              child: Text(
-                                "Try Again",
-                                style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 5,
-                                    // fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Try Again ",
+                                    style: TextStyle(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal * 5,
+                                        // fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "(${GEMS_RATE.CelebrityLookGems} x ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    5,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      Image.asset(
+                                        AppImages.gems,
+                                        height:
+                                            SizeConfig.blockSizeVertical * 2.5,
+                                      ),
+                                      Text(
+                                        ")",
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    5,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ),
                         ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     if (GEMS_RATE.remianingGems.value >=
+                        //         GEMS_RATE.CelebrityLookGems) {
+                        //       controller.sendImageToGoogleAI(
+                        //           controller.selectedImage.value!);
+                        //     } else {
+                        //       // Show a toast message for insufficient gems
+                        //       HelpingMethods.instance.ShowNoGemsToast();
+                        //       Get.toNamed(Routes.GEMSVIEW);
+                        //     }
+                        //     // controller.sendImageToGoogleAI(
+                        //     //     controller.selectedImage.value!);
+                        //   },
+                        //   child: Container(
+                        //     height: SizeConfig.blockSizeVertical * 6.5,
+                        //     width: SizeConfig.blockSizeHorizontal * 70,
+                        //     decoration: BoxDecoration(
+                        //         color: Theme.of(Get.context!).primaryColor,
+                        //         borderRadius: BorderRadius.circular(
+                        //             SizeConfig.blockSizeHorizontal * 4)),
+                        //     child: Center(
+                        //       child: Text(
+                        //         "Try Again",
+                        //         style: TextStyle(
+                        //             fontSize:
+                        //                 SizeConfig.blockSizeHorizontal * 5,
+                        //             // fontWeight: FontWeight.bold,
+                        //             color: Colors.white),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         verticalSpace(SizeConfig.blockSizeVertical * 2),
                       ],
                     );
