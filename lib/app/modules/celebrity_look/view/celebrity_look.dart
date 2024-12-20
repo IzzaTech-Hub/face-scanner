@@ -280,6 +280,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                       ),
                     )
                   : Container()),
+
               verticalSpace(SizeConfig.blockSizeVertical * 2),
 
               Obx(() {
@@ -355,8 +356,17 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                         verticalSpace(SizeConfig.blockSizeVertical * 2),
                         GestureDetector(
                           onTap: () {
-                            controller.sendImageToGoogleAI(
-                                controller.selectedImage.value!);
+                            if (GEMS_RATE.remianingGems.value >=
+                                GEMS_RATE.CelebrityLookGems) {
+                              controller.sendImageToGoogleAI(
+                                  controller.selectedImage.value!);
+                            } else {
+                              // Show a toast message for insufficient gems
+                              HelpingMethods.instance.ShowNoGemsToast();
+                              Get.toNamed(Routes.GEMSVIEW);
+                            }
+                            // controller.sendImageToGoogleAI(
+                            //     controller.selectedImage.value!);
                           },
                           child: Container(
                             height: SizeConfig.blockSizeVertical * 6.5,

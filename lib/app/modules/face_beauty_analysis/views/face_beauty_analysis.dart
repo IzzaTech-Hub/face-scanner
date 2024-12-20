@@ -2,8 +2,10 @@ import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
+import 'package:face_scanner/app/utills/helping_methods.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -144,8 +146,17 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                     controller.responseStatus.value == ResponseStatus.idle
                 ? GestureDetector(
                     onTap: () {
-                      controller
-                          .sendImageToGoogleAI(controller.selectedImage.value!);
+                      if (GEMS_RATE.remianingGems.value >=
+                          GEMS_RATE.FaceBeautyGems) {
+                        controller.sendImageToGoogleAI(
+                            controller.selectedImage.value!);
+                      } else {
+                        // Show a toast message for insufficient gems
+                        HelpingMethods.instance.ShowNoGemsToast();
+                        Get.toNamed(Routes.GEMSVIEW);
+                      }
+                      // controller
+                      //     .sendImageToGoogleAI(controller.selectedImage.value!);
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical * 6.5,
@@ -320,8 +331,17 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
 
                           GestureDetector(
                             onTap: () {
-                              controller.sendImageToGoogleAI(
-                                  controller.selectedImage.value!);
+                              if (GEMS_RATE.remianingGems.value >=
+                                  GEMS_RATE.FaceBeautyGems) {
+                                controller.sendImageToGoogleAI(
+                                    controller.selectedImage.value!);
+                              } else {
+                                // Show a toast message for insufficient gems
+                                HelpingMethods.instance.ShowNoGemsToast();
+                                Get.toNamed(Routes.GEMSVIEW);
+                              }
+                              // controller.sendImageToGoogleAI(
+                              //     controller.selectedImage.value!);
                             },
                             child: Container(
                               height: SizeConfig.blockSizeVertical * 6.5,

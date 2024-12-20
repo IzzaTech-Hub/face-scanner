@@ -3,6 +3,7 @@ import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
+import 'package:face_scanner/app/utills/helping_methods.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -53,12 +54,19 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                     // Check if images are picked before navigating
                     if (controller.selectedImage1.value != null &&
                         controller.selectedImage2.value != null) {
-                      await controller.compareImages();
+                      if (GEMS_RATE.remianingGems.value >=
+                          GEMS_RATE.BeautyScoreGems) {
+                        await controller.compareImages();
 
-                      Get.toNamed(
-                        Routes.BEAUTYSCORERESULT,
-                        // arguments can be passed here if needed
-                      );
+                        Get.toNamed(
+                          Routes.BEAUTYSCORERESULT,
+                          // arguments can be passed here if needed
+                        );
+                      } else {
+                        // Show a toast message for insufficient gems
+                        HelpingMethods.instance.ShowNoGemsToast();
+                        Get.toNamed(Routes.GEMSVIEW);
+                      }
                     } else {
                       // Show an error message
                       Get.snackbar(
