@@ -5,7 +5,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:face_scanner/app/data/response_status.dart';
+import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/dualscanning_widget.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,6 +72,9 @@ class BeautyScoreCtl extends GetxController {
     } else {
       winner.value = 2;
     }
+    HomeViewCtl homeViewCtl = Get.find();
+    homeViewCtl.decreaseGEMS(GEMS_RATE.BeautyScoreGems);
+
     Get.back();
 
     log("Score1: $score1   Score2: $score2");

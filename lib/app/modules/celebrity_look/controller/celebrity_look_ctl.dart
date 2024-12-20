@@ -6,7 +6,9 @@ import 'dart:typed_data';
 import 'package:face_scanner/app/data/celebrity_lists.dart';
 import 'package:face_scanner/app/data/celebrity_match.dart';
 import 'package:face_scanner/app/data/response_status.dart';
+import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
 import 'package:face_scanner/app/services/api_service.dart';
+import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -402,6 +404,8 @@ Note:
 
       log("Image Url: ${imageUrl.value}");
       responseStatus.value = ResponseStatus.success;
+      HomeViewCtl homeViewCtl = Get.find();
+      homeViewCtl.decreaseGEMS(GEMS_RATE.CelebrityLookGems);
     } on Exception catch (e) {
       responseStatus.value = ResponseStatus.failed;
       // showErrorDialog(Get.context!, e.toString());

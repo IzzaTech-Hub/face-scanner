@@ -56,10 +56,10 @@ class GemsView extends GetView<GemsViewController> {
                 // Obx(
                 //   () =>
                 // Text(" ${controller.shoppingCTL.gems.value}", //! Commented by jamal! //
-                Text("Gems Value ?",
+                Obx(() => Text("${GEMS_RATE.remianingGems.value}",
                     style: TextStyle(
                         fontSize: SizeConfig.blockSizeHorizontal * 7,
-                        color: Colors.black)),
+                        color: Colors.black))),
                 // )
                 // SizedBox(width: SizeConfig.screenWidth *0.03,)
               ],
@@ -104,7 +104,7 @@ class GemsView extends GetView<GemsViewController> {
         GestureDetector(
           onTap: () {
             AppLovinProvider.instance
-                .showInterstitial(controller.increase_reward_gems);
+                .showInterstitial(controller.increase_inter_gems);
             // AdMobAdsProvider.instance
             //     .showInterstitialAd(controller.increase_inter_gems);
           },
@@ -132,7 +132,7 @@ class GemsView extends GetView<GemsViewController> {
         GestureDetector(
           onTap: () {
             AppLovinProvider.instance
-                .showRewardedAd(controller.increase_reward_gems());
+                .showRewardedAd(controller.increase_reward_gems);
             // AdMobAdsProvider.instance
             //     .ShowRewardedAd(controller.increase_reward_gems);
           },

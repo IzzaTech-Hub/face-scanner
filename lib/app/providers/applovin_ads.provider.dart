@@ -36,11 +36,12 @@ class AppLovinProvider {
   void init() async {
     // final isAdRemoved = await RevenueCatService().CheckRemoveAdsForUser();
     final isAdRemoved = false;
-    if (!isAdRemoved && kReleaseMode) {
-      initializePlugin();
-    }
-    // if (kReleaseMode) {
+    // if (!isAdRemoved && kReleaseMode) {
     //   initializePlugin();
+    // }
+
+    // if (kReleaseMode) {
+    initializePlugin();
     // }
   }
 
