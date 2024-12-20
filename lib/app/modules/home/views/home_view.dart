@@ -1,5 +1,6 @@
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,15 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: AppColors.primaryColor,
+          shape: CircleBorder(),
+          child: Image.asset(
+            AppImages.chat_support,
+            color: Colors.white,
+            height: SizeConfig.blockSizeVertical * 4,
+          )),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -20,7 +30,8 @@ class HomeView extends StatelessWidget {
               fontSize: SizeConfig.blockSizeHorizontal * 5,
               fontWeight: FontWeight.bold),
         ),
-        // leading: Icon(Icons.menu),
+        // leading: Icon(Icons.chat),
+
         actions: [
           gems_widget(),
           Padding(
