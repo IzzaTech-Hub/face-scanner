@@ -18,6 +18,7 @@ class AppImages {
   static const eyes = "assets/images/eyes.png";
   static const eyebrows = "assets/images/eyebrows.png";
   static const gems = "assets/images/gem.png";
+  static const chat_support = "assets/images/chat_support.png";
 
   // Main Icon
   static const main_icon = "assets/icon/main_icon.png";
