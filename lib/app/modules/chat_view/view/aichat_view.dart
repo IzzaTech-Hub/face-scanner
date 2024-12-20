@@ -34,12 +34,14 @@
 // }
 
 import 'dart:io';
-import 'package:face_scanner/app/utills/app_const.dart';
+import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -55,25 +57,36 @@ class AichatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(
-      //     brightness: Brightness.dark,
-      //     seedColor: const Color.fromARGB(255, 171, 222, 244),
-      //   ),
-      //   useMaterial3: true,
-      // ),
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: AppBar(
-            title: Text('Response'),
-            centerTitle: true,
-          ),
-          //  appThemeAppBar2(context, 'Response'),
+    return
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(
+        //     brightness: Brightness.dark,
+        //     seedColor: const Color.fromARGB(255, 171, 222, 244),
+        //   ),
+        //   useMaterial3: true,
+        // ),
+        Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80),
+        child: AppBar(
+          title: Text('Beauty Coach'),
+          centerTitle: true,
+          leading: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(Icons.arrow_back_ios_new_rounded)),
+          actions: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.blockSizeHorizontal * 2),
+              child: gems_widget(),
+            )
+          ],
         ),
-        body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
+        //  appThemeAppBar2(context, 'Response'),
       ),
+      body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
     );
   }
 }
@@ -157,7 +170,8 @@ class _ChatWidgetState extends State<ChatWidget> {
   Widget build(BuildContext context) {
     final textFieldDecoration = InputDecoration(
       contentPadding: const EdgeInsets.all(15),
-      hintText: 'Enter a prompt...',
+      hintText: 'Enter message...',
+      hintStyle: TextStyle(color: Colors.grey.shade500),
       border: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
           Radius.circular(14),
@@ -168,10 +182,10 @@ class _ChatWidgetState extends State<ChatWidget> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
-          Radius.circular(14),
+          Radius.circular(28),
         ),
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondary,
+          color: AppColors.primaryColor,
         ),
       ),
     );
@@ -214,6 +228,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               children: [
                 Expanded(
                   child: TextField(
+                    cursorColor: AppColors.primaryColor,
                     autofocus: true,
                     focusNode: _textFieldFocus,
                     decoration: textFieldDecoration,
@@ -252,25 +267,45 @@ class _ChatWidgetState extends State<ChatWidget> {
                             ),
                           ),
                         )
-                      : Icon(
-                          Icons.image,
+                      : Icon(Icons.image,
                           size: 30,
                           color: _loading
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.primary,
-                        ),
+                              ? AppColors.primaryColor
+                              : AppColors.primaryColor),
                 ),
                 if (!_loading)
-                  IconButton(
-                    onPressed: () async {
-                      _sendChatMessage(_textController.text);
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      size: 30,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Icon(Icons.send, size: 30, color: AppColors.primaryColor),
+                      Positioned(
+                        top: -5,
+                        right: -5,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '5',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
+                // IconButton(
+                //   onPressed: () async {
+                //     _sendChatMessage(_textController.text);
+                //   },
+                //   icon: Icon(Icons.send,
+                //       size: 30, color: AppColors.primaryColor),
+                // )
                 else
                   const CircularProgressIndicator(),
               ],
@@ -445,8 +480,8 @@ class MessageWidget extends StatelessWidget {
                   color: isFromUser
                       // ? AppThemeColors.onPrimary2
                       // : AppThemeColors.onPrimary1,
-                      ? Theme.of(context).colorScheme.primaryContainer
-                      : Theme.of(context).colorScheme.surfaceContainerHighest,
+                      ? AppColors.primaryColorShade100
+                      : Colors.grey.shade300,
                   borderRadius: BorderRadius.circular(18),
                 ),
                 padding: const EdgeInsets.symmetric(

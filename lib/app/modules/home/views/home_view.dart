@@ -14,7 +14,9 @@ class HomeView extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(Routes.AICHATVIEW);
+          },
           backgroundColor: AppColors.primaryColor,
           shape: CircleBorder(),
           child: Image.asset(
