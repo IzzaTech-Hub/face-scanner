@@ -13,6 +13,7 @@ abstract class Routes {
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
   static const SETTINGSVIEW = _Paths.SETTINGSVIEW;
   static const GEMSVIEW = _Paths.GEMSVIEW;
+  static const AICHATVIEW = _Paths.AICHATVIEW;
   static const TEMP = _Paths.TEMP;
 }
 
@@ -26,5 +27,6 @@ abstract class _Paths {
   static const SPLASHSCREEN = '/SPLASHSCREEN';
   static const SETTINGSVIEW = '/SETTINGSVIEW';
   static const GEMSVIEW = '/GEMSVIEW';
+  static const AICHATVIEW = '/AICHATVIEW';
   static const TEMP = '/temp';
 }

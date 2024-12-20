@@ -1,5 +1,7 @@
 import 'package:face_scanner/app/modules/beauty_score/binding/beauty_score_binding.dart';
 import 'package:face_scanner/app/modules/celebrity_look/binding/celebrity_look_binding.dart';
+import 'package:face_scanner/app/modules/chat_view/binding/aichat_binding.dart';
+import 'package:face_scanner/app/modules/chat_view/view/aichat_view.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/binding/face_beauty_analysis_binding.dart';
 import 'package:face_scanner/app/modules/face_reading/binding/face_reading_binding.dart';
 import 'package:face_scanner/app/modules/gems_view/binding/gems_view_binding.dart';
@@ -73,5 +75,9 @@ class AppPages {
         name: _Paths.GEMSVIEW,
         page: () => GemsView(),
         binding: GemsViewBinding()),
+    GetPage(
+        name: _Paths.AICHATVIEW,
+        page: () => AichatView(),
+        binding: AichatBinding()),
   ];
 }

@@ -34,14 +34,16 @@
 // }
 
 import 'dart:io';
+import 'package:face_scanner/app/utills/app_const.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
-final String _apiKey = RCVariables.GemeniAPIKey.value;
+final String _apiKey = RCVariables.GeminiAPIKey;
 // const String _apiKey = 'AIzaSyBfsg3ZEwnl0CRPYGBh1r_XhFu9tChvL5o';
 
 // void main() {
@@ -64,9 +66,13 @@ class AichatView extends StatelessWidget {
       home: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
-          child: appThemeAppBar2(context, 'Response'),
+          child: AppBar(
+            title: Text('Response'),
+            centerTitle: true,
+          ),
+          //  appThemeAppBar2(context, 'Response'),
         ),
-        body: ChatWidget(apiKey: RCVariables.GemeniAPIKey.value),
+        body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
       ),
     );
   }
