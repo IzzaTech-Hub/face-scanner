@@ -114,7 +114,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                                   ImageSource.camera);
                                               Get.back();
 
-                                              Get.to(() => ScannerWidget());
+                                              // Get.to(() => ScannerWidget());
                                             },
                                             child: _buildImageOption(
                                                 Icons.camera_alt, 'Camera')),
@@ -124,7 +124,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                                                   ImageSource.gallery);
                                               Get.back();
 
-                                              Get.to(() => ScannerWidget());
+                                              // Get.to(() => ScannerWidget());
                                             },
                                             child: _buildImageOption(
                                                 Icons.image, 'Gallery')),
@@ -192,6 +192,69 @@ class FaceReading extends GetView<FaceReadingCtl> {
                         children: [
                           Text(
                             "Start Reading",
+                            style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 5,
+                                // fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                " (${GEMS_RATE.FaceReadingGems} x ",
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 5,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Image.asset(
+                                AppImages.gems,
+                                height: SizeConfig.blockSizeVertical * 2.5,
+                              ),
+                              Text(
+                                ")",
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 5,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                : Container()),
+            verticalSpace(SizeConfig.blockSizeVertical),
+            Obx(() => controller.selectedImage.value != null &&
+                    controller.responseStatus.value == ResponseStatus.success
+                ? GestureDetector(
+                    onTap: () {
+                      if (GEMS_RATE.remianingGems.value >=
+                          GEMS_RATE.FaceReadingGems) {
+                        controller.startScanningImage(
+                            controller.selectedImage.value!);
+                        (controller.selectedImage.value!);
+                      } else {
+                        // Show a toast message for insufficient gems
+                        HelpingMethods.instance.ShowNoGemsToast();
+                        Get.toNamed(Routes.GEMSVIEW);
+                      }
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical * 6.5,
+                      width: SizeConfig.blockSizeHorizontal * 70,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          // color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 4)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Try Again",
                             style: TextStyle(
                                 fontSize: SizeConfig.blockSizeHorizontal * 5,
                                 // fontWeight: FontWeight.bold,
