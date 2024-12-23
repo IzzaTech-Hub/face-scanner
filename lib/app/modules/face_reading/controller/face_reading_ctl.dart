@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
+import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class FaceReadingCtl extends GetxController
 
   Future<void> startScanningImage(File imgFile) async {
     log("Started Scanning the image..");
+    Get.to(() => ScannerWidget());
     responseStatus.value = ResponseStatus.progress;
 
     final SystemInstruction =
