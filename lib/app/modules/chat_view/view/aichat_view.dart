@@ -34,6 +34,7 @@
 // }
 
 import 'dart:io';
+import 'dart:math';
 import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
@@ -139,9 +140,30 @@ class _ChatWidgetState extends State<ChatWidget> {
   bool _loading = false;
   bool isImageSelected = false;
   File? imageFile;
+
+  List<String> startingMessages = [
+    "Hi there! I’m your AI Beauty Coach, here to help you look and feel your best. What beauty topic can I assist you with today?",
+    "Welcome! Whether it’s skincare, makeup tips, or haircare advice, I’m here to guide you. What’s on your beauty mind?",
+    "Hello! Let’s dive into the world of beauty. Are you looking for product recommendations, skincare routines, or wellness tips?",
+    "Hi! I specialize in all things beauty—from glowing skin to flawless makeup. What beauty goal are you working on today?",
+    "Welcome! I’m here to answer all your beauty-related questions. Let’s start—what’s your current beauty concern or curiosity?",
+    "Hey there! I’m your dedicated beauty coach. Is there a specific look or routine you want advice on today?",
+    "Hi! Ready to elevate your beauty game? Let’s talk about how I can help—what are you focusing on today?",
+    "Hello! Looking for expert beauty tips? Let me know if it’s skincare, haircare, or anything else beauty-related.",
+    "Hi! Beauty is my passion and expertise. What’s one beauty challenge or goal I can help you with today?",
+    "Hey there! Let’s unlock your beauty potential together. Tell me, what’s your top beauty question today?"
+  ];
+
   @override
   void initState() {
     super.initState();
+    // Select a random starting message
+    final random = Random();
+    String randomMessage =
+        startingMessages[random.nextInt(startingMessages.length)];
+
+    // Add the random message to the generated content
+    _generatedContent.add((image: null, text: randomMessage, fromUser: false));
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
       apiKey: widget.apiKey,
@@ -153,7 +175,17 @@ class _ChatWidgetState extends State<ChatWidget> {
         responseMimeType: 'text/plain',
       ),
       systemInstruction: Content.system(
-          "You are a dedicated beauty coach. Your sole purpose is to provide expert beauty advice, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. If a query is unrelated to beauty, politely but firmly decline to answer while keeping the conversation focused on beauty. Do not engage in off-topic discussions under any circumstances."
+          '''You are an AI Beauty Coach specializing in all aspects of beauty, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. Your expertise is strictly limited to beauty-related topics.
+
+If a user asks a question or starts a discussion unrelated to beauty, politely but firmly decline to answer. Use a response such as:
+'I’m here to provide expert advice on beauty-related topics. For other subjects, I recommend consulting a specialist in that field.'
+
+Always aim to keep the conversation focused on beauty. If the user strays from the topic, gently guide them back with relevant beauty-related questions or suggestions. For example, you might say:
+'Let’s talk about your skincare routine—what products are you currently using?'
+
+To maintain engagement and conversational continuity, conclude your responses with a follow-up question related to beauty. Your goal is to ensure the user stays interested and supported in their beauty journey. Avoid engaging in discussions that are not related to beauty under any circumstances.
+'''
+          // "You are a dedicated beauty coach. Your sole purpose is to provide expert beauty advice, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. If a query is unrelated to beauty, politely but firmly decline to answer while keeping the conversation focused on beauty. Do not engage in off-topic discussions under any circumstances."
           // 'You are an expert dietician. Generate your response as short as posible and to the point. no need to explain every thing only the necessary elements that are being asked'
           ),
     );
@@ -244,42 +276,44 @@ class _ChatWidgetState extends State<ChatWidget> {
                   ),
                 ),
                 const SizedBox.square(dimension: 5),
-                InkWell(
-                  onTap: !_loading
-                      ? () async {
-                          // _sendImagePrompt(_textController.text);
-                          if (!isImageSelected) {
-                            pickImageFromGallery();
-                          } else {
-                            setState(() {
-                              isImageSelected = false;
-                            });
-                          }
-                        }
-                      : null,
-                  child: isImageSelected
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                8), // Match the container's borderRadius
-                            child: Image.file(
-                              imageFile!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : Icon(Icons.image,
-                          size: 30,
-                          color: _loading
-                              ? AppColors.primaryColor
-                              : AppColors.primaryColor),
-                ),
+                //-----------------Image code Commented Below-----------------------------///
+                // InkWell(
+                //   onTap: !_loading
+                //       ? () async {
+                //           // _sendImagePrompt(_textController.text);
+                //           if (!isImageSelected) {
+                //             pickImageFromGallery();
+                //           } else {
+                //             setState(() {
+                //               isImageSelected = false;
+                //             });
+                //           }
+                //         }
+                //       : null,
+                //   child: isImageSelected
+                //       ? Container(
+                //           width: 30,
+                //           height: 30,
+                //           decoration: BoxDecoration(
+                //             border: Border.all(color: Colors.black, width: 1),
+                //             borderRadius: BorderRadius.circular(8),
+                //           ),
+                //           child: ClipRRect(
+                //             borderRadius: BorderRadius.circular(
+                //                 8), // Match the container's borderRadius
+                //             child: Image.file(
+                //               imageFile!,
+                //               fit: BoxFit.cover,
+                //             ),
+                //           ),
+                //         )
+                //       : Icon(Icons.image,
+                //           size: 30,
+                //           color: _loading
+                //               ? AppColors.primaryColor
+                //               : AppColors.primaryColor),
+                // ),
+
                 if (!_loading)
                   Stack(
                     clipBehavior: Clip.none,
