@@ -11,6 +11,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
@@ -329,72 +330,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                             ),
                           ),
 
-                          GestureDetector(
-                            onTap: () {
-                              if (GEMS_RATE.remianingGems.value >=
-                                  GEMS_RATE.FaceBeautyGems) {
-                                controller.sendImageToGoogleAI(
-                                    controller.selectedImage.value!);
-                              } else {
-                                // Show a toast message for insufficient gems
-                                HelpingMethods.instance.ShowNoGemsToast();
-                                Get.toNamed(Routes.GEMSVIEW);
-                              }
-                              // controller.sendImageToGoogleAI(
-                              //     controller.selectedImage.value!);
-                            },
-                            child: Container(
-                              height: SizeConfig.blockSizeVertical * 6.5,
-                              width: SizeConfig.blockSizeHorizontal * 70,
-                              decoration: BoxDecoration(
-                                  color: AppColors.primaryColorShade400,
-                                  borderRadius: BorderRadius.circular(
-                                      SizeConfig.blockSizeHorizontal * 4)),
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Try Again ",
-                                      style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  5,
-                                          // fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "(${GEMS_RATE.FaceBeautyGems} x ",
-                                          style: TextStyle(
-                                              fontSize: SizeConfig
-                                                      .blockSizeHorizontal *
-                                                  5,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                        Image.asset(
-                                          AppImages.gems,
-                                          height: SizeConfig.blockSizeVertical *
-                                              2.5,
-                                        ),
-                                        Text(
-                                          ")",
-                                          style: TextStyle(
-                                              fontSize: SizeConfig
-                                                      .blockSizeHorizontal *
-                                                  5,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
+                          try_again_btn()
                         ],
                       ),
                     ),
@@ -574,15 +510,43 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                 //     ),
                 //   ),
                 // );
+
+                // // // // // // // // // // //
+                // case ResponseStatus.failed:
+                //   return Center(
+                //     child: Text(
+                //       "Failed to load data",
+                //       style: TextStyle(
+                //         color: Colors.red,
+                //         fontSize: 16,
+                //       ),
+                //     ),
+                //   );
+                // // // // // // // // // //
                 case ResponseStatus.failed:
-                  return Center(
-                    child: Text(
-                      "Failed to load data",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 16,
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Lottie.asset(
+                        "assets/lottie/error.json",
+                        height: SizeConfig.blockSizeVertical * 20,
+                        animate: true,
+                        repeat: true,
+                        reverse: false,
                       ),
-                    ),
+                      // Icon(Icons.error_outline,
+                      //     color: Colors.red, size: 48),
+                      // SizedBox(height: 10),
+                      Text(
+                        "Oops! Something went wrong.",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                        ),
+                      ),
+                      verticalSpace(SizeConfig.blockSizeVertical * 15),
+                      try_again_btn()
+                    ],
                   );
                 case ResponseStatus.idle:
                   return Container(); // Add idle state handling if needed
@@ -591,6 +555,66 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
               }
             }),
           ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector try_again_btn() {
+    return GestureDetector(
+      onTap: () {
+        if (GEMS_RATE.remianingGems.value >= GEMS_RATE.FaceBeautyGems) {
+          controller.sendImageToGoogleAI(controller.selectedImage.value!);
+        } else {
+          // Show a toast message for insufficient gems
+          HelpingMethods.instance.ShowNoGemsToast();
+          Get.toNamed(Routes.GEMSVIEW);
+        }
+        // controller.sendImageToGoogleAI(
+        //     controller.selectedImage.value!);
+      },
+      child: Container(
+        height: SizeConfig.blockSizeVertical * 6.5,
+        width: SizeConfig.blockSizeHorizontal * 70,
+        decoration: BoxDecoration(
+            color: AppColors.primaryColorShade400,
+            borderRadius:
+                BorderRadius.circular(SizeConfig.blockSizeHorizontal * 4)),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Try Again ",
+                style: TextStyle(
+                    fontSize: SizeConfig.blockSizeHorizontal * 5,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              Row(
+                children: [
+                  Text(
+                    "(${GEMS_RATE.FaceBeautyGems} x ",
+                    style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal * 5,
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  Image.asset(
+                    AppImages.gems,
+                    height: SizeConfig.blockSizeVertical * 2.5,
+                  ),
+                  Text(
+                    ")",
+                    style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal * 5,
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

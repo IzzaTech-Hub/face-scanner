@@ -53,6 +53,7 @@ dependencies:
   shared_preferences: ^2.3.4
   fluttertoast: ^8.2.0
   flutter_markdown: ^0.7.4+3
+  lottie: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
     - assets/icon/
     - assets/images/
     - assets/svg/
+    - assets/lottie/error.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

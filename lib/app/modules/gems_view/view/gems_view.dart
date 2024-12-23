@@ -46,23 +46,28 @@ class GemsView extends GetView<GemsViewController> {
             SizedBox(
               height: SizeConfig.screenHeight * 0.03,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  AppImages.gems,
-                  scale: 10,
-                ),
-                // Obx(
-                //   () =>
-                // Text(" ${controller.shoppingCTL.gems.value}", //! Commented by jamal! //
-                Obx(() => Text("${GEMS_RATE.remianingGems.value}",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 7,
-                        color: Colors.black))),
-                // )
-                // SizedBox(width: SizeConfig.screenWidth *0.03,)
-              ],
+            GestureDetector(
+              onTap: () {
+                controller.hackMethod();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AppImages.gems,
+                    scale: 10,
+                  ),
+                  // Obx(
+                  //   () =>
+                  // Text(" ${controller.shoppingCTL.gems.value}", //! Commented by jamal! //
+                  Obx(() => Text("${GEMS_RATE.remianingGems.value}",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 7,
+                          color: Colors.black))),
+                  // )
+                  // SizedBox(width: SizeConfig.screenWidth *0.03,)
+                ],
+              ),
             ),
             SizedBox(
               height: SizeConfig.screenHeight * 0.03,
