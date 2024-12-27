@@ -7,6 +7,7 @@ class HomeViewCtl extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    getGems();
     super.onInit();
   }
 
@@ -40,7 +41,7 @@ class HomeViewCtl extends GetxController {
   Future<int> getGems() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (kDebugMode) {
-      GEMS_RATE.remianingGems.value = prefs.getInt('gems') ?? 100;
+      GEMS_RATE.remianingGems.value = prefs.getInt('gems') ?? 10;
     } else {
       GEMS_RATE.remianingGems.value =
           prefs.getInt('gems') ?? GEMS_RATE.FREE_GEMS;

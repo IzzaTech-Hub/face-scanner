@@ -19,6 +19,8 @@ class AppImages {
   static const eyebrows = "assets/images/eyebrows.png";
   static const gems = "assets/images/gem.png";
   static const chat_support = "assets/images/chat_support.png";
+  static const male_coach = "assets/images/male_coach.png";
+  static const female_coach = "assets/images/female_coach.png";
 
   // Main Icon
   static const main_icon = "assets/icon/main_icon.png";

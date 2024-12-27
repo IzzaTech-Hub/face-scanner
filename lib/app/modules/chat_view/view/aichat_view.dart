@@ -35,6 +35,7 @@
 
 import 'dart:io';
 import 'dart:math';
+import 'package:face_scanner/app/modules/chat_view/controller/aichat_controller.dart';
 import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
@@ -57,20 +58,19 @@ final String _apiKey = RCVariables.GeminiAPIKey;
 //   runApp(const GenerativeAISample());
 // }
 
-class AichatView extends StatelessWidget {
+class AichatView extends GetView<AichatController> {
   const AichatView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return
-        // theme: ThemeData(
-        //   colorScheme: ColorScheme.fromSeed(
-        //     brightness: Brightness.dark,
-        //     seedColor: const Color.fromARGB(255, 171, 222, 244),
-        //   ),
-        //   useMaterial3: true,
-        // ),
-        Scaffold(
+    // theme: ThemeData(
+    //   colorScheme: ColorScheme.fromSeed(
+    //     brightness: Brightness.dark,
+    //     seedColor: const Color.fromARGB(255, 171, 222, 244),
+    //   ),
+    //   useMaterial3: true,
+    // ),
+    return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: AppBar(
@@ -89,8 +89,11 @@ class AichatView extends StatelessWidget {
             )
           ],
         ),
-        //  appThemeAppBar2(context, 'Response'),
       ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(80),
+      //   child: appThemeAppBar2(context, 'Response'),
+      // ),
       body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
     );
   }
@@ -117,6 +120,7 @@ class AichatView extends StatelessWidget {
 //   }
 // }
 
+// class ChatWidget extends GetView<AichatController> {
 class ChatWidget extends StatefulWidget {
   const ChatWidget({
     required this.apiKey,
@@ -135,8 +139,11 @@ class _ChatWidgetState extends State<ChatWidget> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textController = TextEditingController();
   final FocusNode _textFieldFocus = FocusNode();
+  AichatController aichatcontroller = Get.find();
+
   final List<({Image? image, String? text, bool fromUser})> _generatedContent =
       <({Image? image, String? text, bool fromUser})>[];
+
   bool _loading = false;
   bool isImageSelected = false;
   File? imageFile;
@@ -157,12 +164,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   void initState() {
     super.initState();
-    // Select a random starting message
+    AichatController aichatController = Get.find();
+
+    String systemPrompt = aichatController.SystemPrompt;
     final random = Random();
     String randomMessage =
         startingMessages[random.nextInt(startingMessages.length)];
-
-    // Add the random message to the generated content
     _generatedContent.add((image: null, text: randomMessage, fromUser: false));
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
@@ -174,20 +181,7 @@ class _ChatWidgetState extends State<ChatWidget> {
         maxOutputTokens: 1000,
         responseMimeType: 'text/plain',
       ),
-      systemInstruction: Content.system(
-          '''You are an AI Beauty Coach specializing in all aspects of beauty, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. Your expertise is strictly limited to beauty-related topics.
-
-If a user asks a question or starts a discussion unrelated to beauty, politely but firmly decline to answer. Use a response such as:
-'I’m here to provide expert advice on beauty-related topics. For other subjects, I recommend consulting a specialist in that field.'
-
-Always aim to keep the conversation focused on beauty. If the user strays from the topic, gently guide them back with relevant beauty-related questions or suggestions. For example, you might say:
-'Let’s talk about your skincare routine—what products are you currently using?'
-
-To maintain engagement and conversational continuity, conclude your responses with a follow-up question related to beauty. Your goal is to ensure the user stays interested and supported in their beauty journey. Avoid engaging in discussions that are not related to beauty under any circumstances.
-'''
-          // "You are a dedicated beauty coach. Your sole purpose is to provide expert beauty advice, including skincare, haircare, makeup, grooming, and wellness tips that enhance beauty. If a query is unrelated to beauty, politely but firmly decline to answer while keeping the conversation focused on beauty. Do not engage in off-topic discussions under any circumstances."
-          // 'You are an expert dietician. Generate your response as short as posible and to the point. no need to explain every thing only the necessary elements that are being asked'
-          ),
+      systemInstruction: Content.system(systemPrompt),
     );
     _chat = _model.startChat();
   }
@@ -239,22 +233,24 @@ To maintain engagement and conversational continuity, conclude your responses wi
                 ? ListView.builder(
                     controller: _scrollController,
                     itemBuilder: (context, idx) {
-                      final content = _generatedContent[idx];
+                      // content = aichatcontroller.;
+                      final content = aichatcontroller.generatedContent[idx];
                       return MessageWidget(
                         text: content.text,
                         image: content.image,
                         isFromUser: content.fromUser,
+                        isFeedBack: content.isFeedBack,
+                        isGood: content.isGood,
+                        index: idx,
                       );
                     },
-                    itemCount: _generatedContent.length,
+                    itemCount: aichatcontroller.generatedContent.length,
                   )
                 : ListView(
                     children: const [
                       Text(
-                          "Taking a quick pause. Refreshing things for you! 🌈⏳"
-                          // 'No API key found. Please provide an API Key using '
-                          // "'--dart-define' to set the 'API_KEY' declaration.",
-                          ),
+                        "Taking a quick pause. Refreshing things for you! 🌈⏳",
+                      ),
                     ],
                   ),
           ),
@@ -276,7 +272,8 @@ To maintain engagement and conversational continuity, conclude your responses wi
                   ),
                 ),
                 const SizedBox.square(dimension: 5),
-                //-----------------Image code Commented Below-----------------------------///
+
+                /// ---------------------Image code----------------------///
                 // InkWell(
                 //   onTap: !_loading
                 //       ? () async {
@@ -307,13 +304,14 @@ To maintain engagement and conversational continuity, conclude your responses wi
                 //             ),
                 //           ),
                 //         )
-                //       : Icon(Icons.image,
+                //       : Icon(
+                //           Icons.image,
                 //           size: 30,
                 //           color: _loading
-                //               ? AppColors.primaryColor
-                //               : AppColors.primaryColor),
+                //               ? Theme.of(context).colorScheme.secondary
+                //               : Theme.of(context).colorScheme.primary,
+                //         ),
                 // ),
-
                 if (!_loading)
                   Stack(
                     clipBehavior: Clip.none,
@@ -351,8 +349,11 @@ To maintain engagement and conversational continuity, conclude your responses wi
                 //   onPressed: () async {
                 //     _sendChatMessage(_textController.text);
                 //   },
-                //   icon: Icon(Icons.send,
-                //       size: 30, color: AppColors.primaryColor),
+                //   icon: Icon(
+                //     Icons.send,
+                //     size: 30,
+                //     color: Theme.of(context).colorScheme.primary,
+                //   ),
                 // )
                 else
                   const CircularProgressIndicator(),
@@ -401,11 +402,13 @@ To maintain engagement and conversational continuity, conclude your responses wi
           DataPart('image/jpeg', imgBytes.buffer.asUint8List()),
         ])
       ];
-      _generatedContent.add((
+      aichatcontroller.generatedContent.add((
         // image: Image.asset("assets/cat.jpg"),
         image: Image.file(imageFile!),
         text: message,
-        fromUser: true
+        fromUser: true,
+        isFeedBack: false.obs,
+        isGood: false.obs
       ));
       // _generatedContent.add((
       //   image: Image.asset("assets/scones.jpg"),
@@ -415,7 +418,13 @@ To maintain engagement and conversational continuity, conclude your responses wi
 
       var response = await _model.generateContent(content);
       var text = response.text;
-      _generatedContent.add((image: null, text: text, fromUser: false));
+      aichatcontroller.generatedContent.add((
+        image: null,
+        text: text,
+        fromUser: false,
+        isFeedBack: false.obs,
+        isGood: false.obs
+      ));
 
       if (text == null) {
         _showError('No response from API.');
@@ -455,7 +464,6 @@ To maintain engagement and conversational continuity, conclude your responses wi
     }
 
     print("Sending message..");
-
     setState(() {
       _loading = true;
     });
@@ -463,22 +471,31 @@ To maintain engagement and conversational continuity, conclude your responses wi
       _sendImagePrompt(message);
     } else {
       try {
-        _generatedContent.add((image: null, text: message, fromUser: true));
+        aichatcontroller.generatedContent.add((
+          image: null,
+          text: message,
+          fromUser: true,
+          isFeedBack: false.obs,
+          isGood: false.obs
+        ));
         final response = await _chat.sendMessage(
           Content.text(message),
         );
         final text = response.text;
-        _generatedContent.add((image: null, text: text, fromUser: false));
+        aichatcontroller.generatedContent.add((
+          image: null,
+          text: text,
+          fromUser: false,
+          isFeedBack: false.obs,
+          isGood: false.obs
+        ));
 
         if (text == null) {
           _showError('No response from API.');
           return;
         } else {
-          /////////////
-          ///
           HomeViewCtl homeViewCtl = Get.find();
           homeViewCtl.decreaseGEMS(GEMS_RATE.BeautyCoach);
-
           setState(() {
             _loading = false;
             _scrollDown();
@@ -522,64 +539,184 @@ To maintain engagement and conversational continuity, conclude your responses wi
   }
 }
 
-class MessageWidget extends StatelessWidget {
-  const MessageWidget({
+class MessageWidget extends GetView<AichatController> {
+  MessageWidget({
     super.key,
     this.image,
     this.text,
     required this.isFromUser,
+    required this.isFeedBack,
+    required this.isGood,
+    required this.index,
   });
 
   final Image? image;
   final String? text;
   final bool isFromUser;
+  final RxBool isFeedBack;
+  final RxBool isGood;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment:
-          isFromUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+    return Column(
       children: [
-        Flexible(
-            child: Container(
-                constraints:
-                    BoxConstraints(maxWidth: SizeConfig.screenWidth * 0.75),
-                decoration: BoxDecoration(
-                  color: isFromUser
-                      // ? AppThemeColors.onPrimary2
-                      // : AppThemeColors.onPrimary1,
-                      ? AppColors.primaryColorShade100
-                      : Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 20,
-                ),
-                margin: const EdgeInsets.only(bottom: 8),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (image case final image?)
-                        Padding(
-                            padding: EdgeInsets.only(bottom: 10), child: image),
-                      if (text case final text?)
-                        MarkdownBody(
-                          data: text,
-                          //   styleSheet: isFromUser
-                          //       ? MarkdownStyleSheet()
-                          //       : MarkdownStyleSheet(
-                          //           p: const TextStyle(
-                          //               color: Colors.white), // Paragraph text color
-                          //           h1: const TextStyle(
-                          //               color: Colors.white), // Header 1 color
-                          //           h2: const TextStyle(
-                          //               color: Colors.white), // Header 2 color
-                          //           strong: const TextStyle(
-                          //               color: Colors.white), // Bold text color
-                          //           em: const TextStyle(color: Colors.white),
-                          //         ),
-                        ),
-                    ]))),
+        Row(
+          mainAxisAlignment:
+              isFromUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            Flexible(
+                child: Container(
+                    constraints:
+                        BoxConstraints(maxWidth: SizeConfig.screenWidth * 0.75),
+                    decoration: BoxDecoration(
+                      color: isFromUser
+                          // ? AppThemeColors.onPrimary2
+                          // : AppThemeColors.onPrimary1,
+                          ? Theme.of(context).colorScheme.primaryContainer
+                          : Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (image case final image?)
+                            Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: image),
+                          if (text case final text?)
+                            MarkdownBody(
+                              data: text,
+                              //   styleSheet: isFromUser
+                              //       ? MarkdownStyleSheet()
+                              //       : MarkdownStyleSheet(
+                              //           p: const TextStyle(
+                              //               color: Colors.white), // Paragraph text color
+                              //           h1: const TextStyle(
+                              //               color: Colors.white), // Header 1 color
+                              //           h2: const TextStyle(
+                              //               color: Colors.white), // Header 2 color
+                              //           strong: const TextStyle(
+                              //               color: Colors.white), // Bold text color
+                              //           em: const TextStyle(color: Colors.white),
+                              //         ),
+                            ),
+                        ]))),
+          ],
+        ),
+        Container(
+          // width: SizeConfig.screenWidth,
+          // color: Colors.red,
+          margin: EdgeInsets.symmetric(
+              // vertical: SizeConfig.blockSizeVertical * 1,
+              horizontal: SizeConfig.blockSizeHorizontal * 5),
+          child: Row(
+            mainAxisAlignment:
+                isFromUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              // IconButton(
+              //     padding: EdgeInsets.zero,
+              //     color: Colors.white,
+              //     tooltip: "Share",
+              //     onPressed: () {
+              //       controller.ShareMessage(
+              //           controller.chatList[index].message);
+              //     },
+              //     icon: Icon(Icons.share)),
+
+              // horizontalSpace(SizeConfig.blockSizeHorizontal*2),
+
+              // IconButton(
+              //     padding: EdgeInsets.zero,
+              //     color: Colors.white,
+              //     tooltip: "Copy",
+              //     onPressed: () {
+              //       controller.CopyMessage(
+              //           controller.chatList[index].message);
+              //     },
+              //     icon: Icon(
+              //       Icons.copy_rounded,
+              //       size: iconSize,
+              //     )),
+
+              // !isSender && !(isFeedback && !isGood)
+              Obx(
+                () => !(isFeedBack.value && !isGood.value) && !isFromUser
+                    // 0 == 0
+                    ? IconButton(
+                        padding: EdgeInsets.zero,
+                        color: Colors.black45,
+                        tooltip: "Good",
+                        onPressed: () {
+                          if (0 == 0)
+                          //  (!isFeedback)
+                          {
+                            controller.GoodResponse(
+                                // controller.chatList[index].message,
+                                // index
+                                text!,
+                                index);
+                          }
+                        },
+                        icon: Icon(
+                          isFeedBack.value && isGood.value
+                              ? Icons.thumb_up
+                              : Icons.thumb_up_alt_outlined,
+                          size: 30,
+                          // size: iconSize,
+                        ))
+                    : Container(),
+              ),
+//
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//
+
+              // !isSender && !(isFeedback && isGood)
+              // 0 == 0
+              Obx(
+                () => !(isFeedBack.value && isGood.value) && !isFromUser
+                    ? IconButton(
+                        padding: EdgeInsets.zero,
+                        color: Colors.black45,
+                        tooltip: "Bad Response",
+                        onPressed: () {
+                          if
+                              // (0 == 0)
+                              (!isFeedBack.value) {
+                            controller.reportMessage(
+                                Get.context!,
+                                text!
+                                // controller.chatList[index].message,
+                                ,
+                                index);
+                          }
+                        },
+                        icon: Icon(
+                          isFeedBack.value && !isGood.value
+                              ? Icons.thumb_down
+                              : Icons.thumb_down_alt_outlined,
+                          size: 30,
+                          // size: iconSize,
+                        ))
+                    : Container(),
+              )
+              // horizontalSpace(SizeConfig.blockSizeHorizontal*2),
+              //   IconButton(
+              //     padding: EdgeInsets.zero,
+
+              //     onPressed: (){}, icon:Icon(Icons.share))
+              // ,
+              // horizontalSpace(SizeConfig.blockSizeHorizontal*2),
+            ],
+          ),
+        ),
       ],
     );
   }

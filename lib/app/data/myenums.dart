@@ -1,0 +1,1 @@
+enum CoachType { male, female }

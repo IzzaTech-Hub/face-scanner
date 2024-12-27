@@ -1,4 +1,6 @@
+import 'package:face_scanner/app/data/myenums.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
@@ -13,17 +15,110 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       Get.toNamed(Routes.AICHATVIEW);
+      //     },
+      //     backgroundColor: AppColors.primaryColor,
+      //     shape: CircleBorder(),
+      //     child: Image.asset(
+      //       AppImages.chat_support,
+      //       color: Colors.white,
+      //       height: SizeConfig.blockSizeVertical * 4,
+      //     )),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.toNamed(Routes.AICHATVIEW);
-          },
-          backgroundColor: AppColors.primaryColor,
-          shape: CircleBorder(),
-          child: Image.asset(
-            AppImages.chat_support,
-            color: Colors.white,
-            height: SizeConfig.blockSizeVertical * 4,
-          )),
+        onPressed: () {
+          Get.dialog(
+            Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Choose Your Coach',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.blockSizeHorizontal * 4),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                  Get.toNamed(Routes.AICHATVIEW,
+                                      arguments: CoachType.male);
+                                },
+                                child: Image.asset(
+                                  AppImages.male_coach,
+                                  height: 80,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Male Coach",
+                              style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.blockSizeHorizontal * 4),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                  Get.toNamed(Routes.AICHATVIEW,
+                                      arguments: CoachType.female);
+                                },
+                                child: Image.asset(
+                                  AppImages.female_coach,
+                                  height: 80,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Female Coach",
+                              style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        backgroundColor: AppColors.primaryColor,
+        shape: CircleBorder(),
+        child: Image.asset(
+          AppImages.chat_support,
+          color: Colors.white,
+          height: SizeConfig.blockSizeVertical * 4,
+        ),
+      ),
+
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -52,6 +147,7 @@ class HomeView extends StatelessWidget {
           Center(
             child: GestureDetector(
               onTap: () {
+                AppLovinProvider.instance.showInterstitial(() {});
                 Get.toNamed(Routes.FACEBEAUTYANALYSIS);
               },
               child: Container(
@@ -114,6 +210,7 @@ class HomeView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
+              AppLovinProvider.instance.showInterstitial(() {});
               Get.toNamed(Routes.FACEREADING);
             },
             child: Container(
@@ -182,6 +279,7 @@ class HomeView extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
+                  AppLovinProvider.instance.showInterstitial(() {});
                   Get.toNamed(Routes.CELEBRITYLOOK);
                 },
                 child: scanner_modes(Color(0xFFD06810), Color(0xFFCA986F),
@@ -195,6 +293,7 @@ class HomeView extends StatelessWidget {
               //     ""),
               GestureDetector(
                 onTap: () {
+                  AppLovinProvider.instance.showInterstitial(() {});
                   Get.toNamed(Routes.BEAUTYSCORE);
                 },
                 child: scanner_modes(

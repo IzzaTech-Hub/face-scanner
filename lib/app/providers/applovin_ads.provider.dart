@@ -40,9 +40,9 @@ class AppLovinProvider {
     //   initializePlugin();
     // }
 
-    // if (kReleaseMode) {
-    initializePlugin();
-    // }
+    if (kReleaseMode) {
+      initializePlugin();
+    }
   }
 
   Future<void> initializePlugin() async {
