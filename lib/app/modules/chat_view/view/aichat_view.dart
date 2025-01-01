@@ -171,6 +171,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     String randomMessage =
         startingMessages[random.nextInt(startingMessages.length)];
     _generatedContent.add((image: null, text: randomMessage, fromUser: false));
+
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
       apiKey: widget.apiKey,
