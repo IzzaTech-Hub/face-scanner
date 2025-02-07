@@ -12,6 +12,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 class FaceReading extends GetView<FaceReadingCtl> {
   const FaceReading({super.key});
@@ -289,6 +290,26 @@ class FaceReading extends GetView<FaceReadingCtl> {
                     ),
                   )
                 : Container()),
+            Obx(() => controller.selectedImage.value != null &&
+                    controller.responseStatus.value == ResponseStatus.idle
+                ? Container()
+                : Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: SizeConfig.blockSizeVertical * 5),
+                        // height: SizeConfig.blockSizeVertical * 30,
+                        width: SizeConfig.blockSizeHorizontal * 60,
+                        decoration: BoxDecoration(),
+                        child: Lottie.asset("assets/lottie/add_image.json"),
+                      ),
+                      Container(
+                        width: SizeConfig.blockSizeHorizontal * 70,
+                        child: Text(
+                            "Show us your smile and uncover what your face says about you! 🌈"),
+                      )
+                    ],
+                  ))
           ],
         ),
       ),

@@ -549,7 +549,23 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                     ],
                   );
                 case ResponseStatus.idle:
-                  return Container(); // Add idle state handling if needed
+                  return Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: SizeConfig.blockSizeVertical * 10),
+                        // height: SizeConfig.blockSizeVertical * 30,
+                        width: SizeConfig.blockSizeHorizontal * 60,
+                        decoration: BoxDecoration(),
+                        child: Lottie.asset("assets/lottie/add_image.json"),
+                      ),
+                      Container(
+                        width: SizeConfig.blockSizeHorizontal * 70,
+                        child: Text(
+                            "Take a quick selfie and let our AI analyze your Unique Feature🌟"),
+                      )
+                    ],
+                  ); // Add idle state handling if needed
                 default:
                   return Container();
               }

@@ -492,7 +492,24 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                         try_again_btn()
                       ],
                     );
-
+                  case ResponseStatus.idle:
+                    return Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: SizeConfig.blockSizeVertical * 5),
+                          // height: SizeConfig.blockSizeVertical * 30,
+                          width: SizeConfig.blockSizeHorizontal * 60,
+                          decoration: BoxDecoration(),
+                          child: Lottie.asset("assets/lottie/add_image.json"),
+                        ),
+                        Container(
+                          width: SizeConfig.blockSizeHorizontal * 70,
+                          child: Text(
+                              "Snap a selfie and let our AI reveal your Celebrity Twin! 🌟"),
+                        )
+                      ],
+                    );
                   default:
                     return Container();
                 }

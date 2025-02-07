@@ -10,6 +10,8 @@ class AppStrings {
   static var HOTPOT_API;
   static const MAX_CHAT_TOKKENS = 400;
 
+  // !!! AppLovin Ad IDS !!!
+
   // static const MAX_BANNER_ID = "0e743aaec215bf86";
   static const MAX_BANNER_ID = "9c081761c0e6dbf4";
 
@@ -25,4 +27,20 @@ class AppStrings {
 
   static const MAX_SDK =
       "aRDMGbWzwEWwvtKeNdJsHwxEn46w01GNDRaxtR7ShTArDJv5nR9rzFS-Emmb6e9epRPaiGUXRSM9NGeORoZM5L";
+
+  // Admob Real IDS! Andriod
+
+  // static String ADMOB_BANNER = "ca-app-pub-6047136030887290/8200776848";
+  // static String ADMOB_INTERSTITIAL = "ca-app-pub-6047136030887290/8272944942";
+  // static String ADMOB_APP_OPEN = "ca-app-pub-6047136030887290/5455209915";
+  // static String ADMOB_NATIVE = "ca-app-pub-6047136030887290/6939666060";
+  // static String ADMOB_REWARDED = "ca-app-pub-6047136030887290/5905839899";
+
+  // Admob Test IDS!
+
+  static String ADMOB_BANNER = "ca-app-pub-3940256099942544/6300978111";
+  static String ADMOB_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
+  static String ADMOB_APP_OPEN = "ca-app-pub-3940256099942544/3419835294";
+  static String ADMOB_NATIVE = "ca-app-pub-3940256099942544/2247696110";
+  static String ADMOB_REWARDED = "ca-app-pub-3940256099942544/5224354917";
 }
