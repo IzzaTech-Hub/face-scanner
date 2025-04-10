@@ -79,8 +79,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
 ''';
 
     final model = GenerativeModel(
-      // model: 'gemini-1.5-flash',
-      model: 'gemini-1.5-flash',
+      // model: RCVariables.geminiModel,
+      model: RCVariables.geminiModel,
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.5,

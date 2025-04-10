@@ -76,7 +76,7 @@ class CelebrityLookCtl extends GetxController {
 
 //     final model = GenerativeModel(
 //       // model: 'gemini-1.5-pro',
-//       model: 'gemini-1.5-flash',
+//       model: RCVariables.geminiModel,
 //       apiKey: RCVariables.GeminiAPIKey,
 //       generationConfig: GenerationConfig(
 //         temperature: 0.8,
@@ -195,7 +195,7 @@ class CelebrityLookCtl extends GetxController {
 
 //     final model = GenerativeModel(
 //       // model: 'gemini-1.5-pro',
-//       model: 'gemini-1.5-flash',
+//       model: RCVariables.geminiModel,
 //       apiKey: RCVariables.GeminiAPIKey,
 //       generationConfig: GenerationConfig(
 //         temperature: 0.1,
@@ -333,7 +333,7 @@ Note:
 
     final model = GenerativeModel(
       // model: 'gemini-1.5-pro',
-      model: 'gemini-1.5-flash',
+      model: RCVariables.geminiModel,
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.3,
