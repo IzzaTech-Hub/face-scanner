@@ -239,7 +239,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                         height: SizeConfig.blockSizeVertical * 6.5,
                         width: SizeConfig.blockSizeHorizontal * 70,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: AppColors.primaryColor,
                             // color: Colors.grey.shade400,
                             borderRadius: BorderRadius.circular(
                                 SizeConfig.blockSizeHorizontal * 4)),

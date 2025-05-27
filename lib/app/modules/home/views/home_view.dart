@@ -7,6 +7,8 @@ import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -402,7 +404,67 @@ class HomeView extends StatelessWidget {
                 //     "Beauty Tips",
                 //     ""),
               ],
-            )
+            ),
+            Spacer(),
+            Container(
+                          height: SizeConfig.blockSizeVertical * 10,
+                          margin: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical * 1),
+                          // margin: EdgeInsets.only(
+                          //     top: SizeConfig.blockSizeVertical * 20),
+                          width: double.infinity,
+                          child: GestureDetector(
+                            onTap: () async {
+                              final InAppReview inAppReview =
+                                  InAppReview.instance;
+
+                              inAppReview.openStoreListing();
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      bottom:
+                                          SizeConfig.blockSizeVertical * 0.5),
+                                  child: Text(
+                                    "Rate Us",
+                                    style: GoogleFonts.alata(
+                                        color: Colors.black,
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal *
+                                                3.5,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
           ],
         ),
       ),

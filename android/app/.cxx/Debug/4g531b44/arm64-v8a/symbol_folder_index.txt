@@ -1,0 +1,1 @@
+E:\face_scanner\build\app\intermediates\cxx\Debug\4g531b44\obj\arm64-v8a

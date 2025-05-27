@@ -184,7 +184,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                       height: SizeConfig.blockSizeVertical * 6.5,
                       width: SizeConfig.blockSizeHorizontal * 70,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: AppColors.primaryColor,
                           // color: Colors.grey.shade400,
                           borderRadius: BorderRadius.circular(
                               SizeConfig.blockSizeHorizontal * 4)),
@@ -247,7 +247,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                       height: SizeConfig.blockSizeVertical * 6.5,
                       width: SizeConfig.blockSizeHorizontal * 70,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: AppColors.primaryColor,
                           // color: Colors.grey.shade400,
                           borderRadius: BorderRadius.circular(
                               SizeConfig.blockSizeHorizontal * 4)),
@@ -291,7 +291,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                   )
                 : Container()),
             Obx(() => controller.selectedImage.value != null &&
-                    controller.responseStatus.value == ResponseStatus.idle
+                    controller.responseStatus.value == ResponseStatus.success
                 ? Container()
                 : Column(
                     children: [
