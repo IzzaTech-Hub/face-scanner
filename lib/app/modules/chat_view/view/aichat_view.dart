@@ -173,7 +173,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     _generatedContent.add((image: null, text: randomMessage, fromUser: false));
 
     _model = GenerativeModel(
-      model: 'gemini-1.5-flash-latest',
+      model: RCVariables.geminiModel,
       apiKey: widget.apiKey,
       generationConfig: GenerationConfig(
         temperature: 1,
