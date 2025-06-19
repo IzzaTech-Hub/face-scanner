@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/services/remoteconfig_services.dart';
 import 'package:face_scanner/firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -19,7 +20,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     // DeviceOrientation.landscapeRight,
   ]);
-
+AdMobAdsProvider.instance.initialize();
   // RemoteConfigService().initialize();
   runApp(const MyApp());
 }

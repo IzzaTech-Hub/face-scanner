@@ -1,5 +1,6 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
@@ -23,6 +24,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
         ),
         leading: GestureDetector(
             onTap: () {
+              AdMobAdsProvider.instance.showInterstitialAd(() {});
               Get.back();
             },
             child: Icon(Icons.arrow_back_ios_new_rounded)),

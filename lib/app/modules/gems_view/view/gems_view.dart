@@ -1,17 +1,99 @@
 import 'package:face_scanner/app/modules/gems_view/controller/gems_view_ctl.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
+import 'package:face_scanner/app/utills/CM.dart';
+import 'package:face_scanner/app/utills/appstring.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class GemsView extends GetView<GemsViewController> {
   GemsView({Key? key}) : super(key: key);
 
+    
+    // // // Banner Ad Implementation start // // //
+//? Commented by jamal start
+  late BannerAd myBanner;
+  RxBool isBannerLoaded = false.obs;
+
+  initBanner() {
+    BannerAdListener listener = BannerAdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) {
+        print('Ad loaded.');
+        isBannerLoaded.value = true;
+      },
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // Dispose the ad here to free resources.
+        ad.dispose();
+        print('Ad failed to load: $error');
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) {
+        print('Ad opened.');
+      },
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) {
+        print('Ad closed.');
+      },
+      // Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad) {
+        print('Ad impression.');
+      },
+    );
+
+    myBanner = BannerAd(
+      adUnitId: AppStrings.ADMOB_BANNER,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: listener,
+    );
+    myBanner.load();
+  } //? Commented by jamal end
+
+  /// Banner Ad Implementation End ///
+
+ // // // Native Ad Implementation start // // //
+
+  //? commented by jamal start
+  NativeAd? nativeAd;
+  RxBool nativeAdIsLoaded = false.obs;
+
+  initNative() {
+    nativeAd = NativeAd(
+      adUnitId: AppStrings.ADMOB_NATIVE,
+      request: AdRequest(),
+      // factoryId: ,
+      nativeTemplateStyle:
+          NativeTemplateStyle(templateType: TemplateType.medium),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded.');
+
+          nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+      ),
+    )..load();
+  }
+  //? commented by jamal end
+
+  /// Native Ad Implemntation End ///
+
   @override
   Widget build(BuildContext context) {
+    initBanner();
+    initNative();
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -23,6 +105,7 @@ class GemsView extends GetView<GemsViewController> {
         ),
         leading: GestureDetector(
             onTap: () {
+              AdMobAdsProvider.instance.showInterstitialAd(() {});
               Get.back();
             },
             child: Icon(
@@ -34,8 +117,18 @@ class GemsView extends GetView<GemsViewController> {
       body: Center(
         child: Column(
           children: [
+              verticalSpace(SizeConfig.blockSizeVertical * 1),
+
+                          Obx(() => isBannerLoaded.value &&
+                    AdMobAdsProvider.instance.isAdEnable.value
+                ? Container(
+                    height: AdSize.banner.height.toDouble(),
+                    child: AdWidget(ad: myBanner))
+                : Container(
+                 
+                )), 
             SizedBox(
-              height: SizeConfig.screenHeight * 0.03,
+              height: SizeConfig.screenHeight * 0.01,
             ),
             Text(
               'Available GEMS',
@@ -92,7 +185,20 @@ class GemsView extends GetView<GemsViewController> {
                   Ad_GEM_widget(),
                 ],
               ),
-            )
+            ),
+
+             Obx(
+                  () =>  AdMobAdsProvider.instance.isAdEnable.value
+                          ? Center(
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.blockSizeHorizontal * 5),
+                                  child: NativeAdMethed(
+                                      nativeAd, nativeAdIsLoaded)),
+                            )
+                          : Container(),
+                )
           ],
         ),
       ),
@@ -108,8 +214,9 @@ class GemsView extends GetView<GemsViewController> {
         // ElevatedButton(onPressed: (){}, child: Text("Watch Interstitial AD (${GEMS_RATE.INTER_INCREAES_GEMS_RATE} GEMS)")),
         GestureDetector(
           onTap: () {
-            AppLovinProvider.instance
-                .showInterstitial(controller.increase_inter_gems);
+            AdMobAdsProvider.instance.showInterstitialAd(controller.increase_inter_gems);
+            // AppLovinProvider.instance
+            //     .showInterstitial(controller.increase_inter_gems);
             // AdMobAdsProvider.instance
             //     .showInterstitialAd(controller.increase_inter_gems);
           },
@@ -136,8 +243,9 @@ class GemsView extends GetView<GemsViewController> {
         ),
         GestureDetector(
           onTap: () {
-            AppLovinProvider.instance
-                .showRewardedAd(controller.increase_reward_gems);
+            AdMobAdsProvider.instance.showInterstitialAd(controller.increase_reward_gems);
+            // AppLovinProvider.instance
+            //     .showRewardedAd(controller.increase_reward_gems);
             // AdMobAdsProvider.instance
             //     .ShowRewardedAd(controller.increase_reward_gems);
           },

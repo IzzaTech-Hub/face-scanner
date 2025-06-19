@@ -30,17 +30,19 @@ class AppStrings {
 
   // Admob Real IDS! Andriod
 
-  // static String ADMOB_BANNER = "ca-app-pub-6047136030887290/8200776848";
-  // static String ADMOB_INTERSTITIAL = "ca-app-pub-6047136030887290/8272944942";
-  // static String ADMOB_APP_OPEN = "ca-app-pub-6047136030887290/5455209915";
-  // static String ADMOB_NATIVE = "ca-app-pub-6047136030887290/6939666060";
-  // static String ADMOB_REWARDED = "ca-app-pub-6047136030887290/5905839899";
+  static String ADMOB_BANNER = "ca-app-pub-4640449098050316/9302841578";
+  static String ADMOB_INTERSTITIAL = "ca-app-pub-4640449098050316/5874732453";
+  static String ADMOB_APP_OPEN = "ca-app-pub-4640449098050316/3944920720";
+  static String ADMOB_NATIVE = "ca-app-pub-4640449098050316/7947744911";
+  static String ADMOB_REWARDED = "ca-app-pub-4640449098050316/5258002399";
 
   // Admob Test IDS!
 
-  static String ADMOB_BANNER = "ca-app-pub-3940256099942544/6300978111";
-  static String ADMOB_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
-  static String ADMOB_APP_OPEN = "ca-app-pub-3940256099942544/3419835294";
-  static String ADMOB_NATIVE = "ca-app-pub-3940256099942544/2247696110";
-  static String ADMOB_REWARDED = "ca-app-pub-3940256099942544/5224354917";
+  // static String ADMOB_BANNER = "ca-app-pub-3940256099942544/6300978111";
+  // static String ADMOB_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
+  // static String ADMOB_APP_OPEN = "ca-app-pub-3940256099942544/3419835294";
+  // static String ADMOB_NATIVE = "ca-app-pub-3940256099942544/2247696110";
+  // static String ADMOB_REWARDED = "ca-app-pub-3940256099942544/5224354917";
 }
+
+

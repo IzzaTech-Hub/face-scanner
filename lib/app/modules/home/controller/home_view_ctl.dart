@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/utills/gems_rate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class HomeViewCtl extends GetxController {
   void onInit() {
     // TODO: implement onInit
     getGems();
+
     super.onInit();
   }
 

@@ -1,21 +1,68 @@
 import 'package:face_scanner/app/data/myenums.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/gems_widget.dart';
-import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
+// import 'package:face_scanner/app/providers/applovin_ads.provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/appstring.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+   HomeView({super.key});
+
+    // // // Banner Ad Implementation start // // //
+//? Commented by jamal start
+  late BannerAd myBanner;
+  RxBool isBannerLoaded = false.obs;
+
+  initBanner() {
+    BannerAdListener listener = BannerAdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) {
+        print('Ad loaded.');
+        isBannerLoaded.value = true;
+      },
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // Dispose the ad here to free resources.
+        ad.dispose();
+        print('Ad failed to load: $error');
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) {
+        print('Ad opened.');
+      },
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) {
+        print('Ad closed.');
+      },
+      // Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad) {
+        print('Ad impression.');
+      },
+    );
+
+    myBanner = BannerAd(
+      adUnitId: AppStrings.ADMOB_BANNER,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: listener,
+    );
+    myBanner.load();
+  } //? Commented by jamal end
+
+  /// Banner Ad Implementation End ///
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    initBanner();
     return Scaffold(
       // backgroundColor: Color(0xFFFAF9F6),
       // floatingActionButton: FloatingActionButton(
@@ -198,6 +245,7 @@ class HomeView extends StatelessWidget {
                       gems_widget(),
                       GestureDetector(
                         onTap: () {
+                          AdMobAdsProvider.instance.showInterstitialAd(() {});
                           Get.toNamed(Routes.SETTINGSVIEW);
                         },
                         child: Padding(
@@ -212,11 +260,24 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            verticalSpace(SizeConfig.blockSizeVertical * 3),
+
+              verticalSpace(SizeConfig.blockSizeVertical * 2),
+
+                          Obx(() => isBannerLoaded.value &&
+                    AdMobAdsProvider.instance.isAdEnable.value
+                ? Container(
+                    height: AdSize.banner.height.toDouble(),
+                    child: AdWidget(ad: myBanner))
+                : Container(
+                 
+                )), 
+            verticalSpace(SizeConfig.blockSizeVertical * 1),
             Center(
               child: GestureDetector(
                 onTap: () {
-                  AppLovinProvider.instance.showInterstitial(() {});
+                  
+                  // AppLovinProvider.instance.showInterstitial(() {});
+                  AdMobAdsProvider.instance.showInterstitialAd(() {});
                   Get.toNamed(Routes.FACEBEAUTYANALYSIS);
                 },
                 child: Container(
@@ -280,7 +341,8 @@ class HomeView extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                AppLovinProvider.instance.showInterstitial(() {});
+                // AppLovinProvider.instance.showInterstitial(() {});
+                AdMobAdsProvider.instance.showInterstitialAd(() {});
                 Get.toNamed(Routes.FACEREADING);
               },
               child: Container(
@@ -349,7 +411,8 @@ class HomeView extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial(() {});
+                    // AppLovinProvider.instance.showInterstitial(() {});
+                    AdMobAdsProvider.instance.showInterstitialAd(() {});
                     Get.toNamed(Routes.CELEBRITYLOOK);
                   },
                   child: scanner_modes(
@@ -368,7 +431,8 @@ class HomeView extends StatelessWidget {
                 //     ""),
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial(() {});
+                    // AppLovinProvider.instance.showInterstitial(() {});
+                    AdMobAdsProvider.instance.showInterstitialAd(() {});
                     Get.toNamed(Routes.BEAUTYSCORE);
                   },
                   child: scanner_modes(
@@ -405,6 +469,7 @@ class HomeView extends StatelessWidget {
                 //     ""),
               ],
             ),
+            
             Spacer(),
             Container(
                           height: SizeConfig.blockSizeVertical * 10,

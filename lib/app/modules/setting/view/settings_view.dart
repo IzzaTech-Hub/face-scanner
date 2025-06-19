@@ -1,16 +1,99 @@
 import 'package:face_scanner/app/modules/setting/controller/settings_view_ctl.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
+import 'package:face_scanner/app/utills/CM.dart';
+import 'package:face_scanner/app/utills/appstring.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class SettingsView extends GetView<SettingsCTL> {
-  const SettingsView({super.key});
+   SettingsView({super.key});
+
+   
+    // // // Banner Ad Implementation start // // //
+//? Commented by jamal start
+  late BannerAd myBanner;
+  RxBool isBannerLoaded = false.obs;
+
+  initBanner() {
+    BannerAdListener listener = BannerAdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) {
+        print('Ad loaded.');
+        isBannerLoaded.value = true;
+      },
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // Dispose the ad here to free resources.
+        ad.dispose();
+        print('Ad failed to load: $error');
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) {
+        print('Ad opened.');
+      },
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) {
+        print('Ad closed.');
+      },
+      // Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad) {
+        print('Ad impression.');
+      },
+    );
+
+    myBanner = BannerAd(
+      adUnitId: AppStrings.ADMOB_BANNER,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: listener,
+    );
+    myBanner.load();
+  } //? Commented by jamal end
+
+  /// Banner Ad Implementation End ///
+
+  // // // Native Ad Implementation start // // //
+
+  //? commented by jamal start
+  NativeAd? nativeAd;
+  RxBool nativeAdIsLoaded = false.obs;
+
+  initNative() {
+    nativeAd = NativeAd(
+      adUnitId: AppStrings.ADMOB_NATIVE,
+      request: AdRequest(),
+      // factoryId: ,
+      nativeTemplateStyle:
+          NativeTemplateStyle(templateType: TemplateType.medium),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded.');
+
+          nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+      ),
+    )..load();
+  }
+  //? commented by jamal end
+
+  /// Native Ad Implemntation End ///
+
 
   @override
   Widget build(BuildContext context) {
+    initBanner();
+    initNative();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -23,11 +106,23 @@ class SettingsView extends GetView<SettingsCTL> {
           centerTitle: true,
           leading: GestureDetector(
               onTap: () {
+                AdMobAdsProvider.instance.showInterstitialAd(() {});
                 Get.back();
               },
               child: Icon(Icons.arrow_back_ios_new_rounded)),
         ),
-        body: Column(children: [
+        body: Column(
+          children: [
+             verticalSpace(SizeConfig.blockSizeVertical * 1),
+
+                          Obx(() => isBannerLoaded.value &&
+                    AdMobAdsProvider.instance.isAdEnable.value
+                ? Container(
+                    height: AdSize.banner.height.toDouble(),
+                    child: AdWidget(ad: myBanner))
+                : Container(
+                 
+                )), 
           verticalSpace(SizeConfig.blockSizeVertical * 2),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
@@ -59,6 +154,19 @@ class SettingsView extends GetView<SettingsCTL> {
             child: settings_btn("Invite your friends", Icons.person_add_alt_1,
                 "Spread the World", Icons.arrow_forward_ios_rounded, context),
           ),
+verticalSpace(SizeConfig.blockSizeVertical * 2),
+              Obx(
+                  () =>  AdMobAdsProvider.instance.isAdEnable.value
+                          ? Center(
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.blockSizeHorizontal * 5),
+                                  child: NativeAdMethed(
+                                      nativeAd, nativeAdIsLoaded)),
+                            )
+                          : Container(),
+                )
         ]));
   }
 
