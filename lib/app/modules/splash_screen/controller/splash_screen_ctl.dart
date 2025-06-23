@@ -23,10 +23,19 @@ class SplashController extends GetxController {
       await Future.delayed(const Duration(milliseconds: 30));
       percent.value = i;
     }
+bool adShown = false;
 
-    AdMobAdsProvider.instance.showInterstitialAd(() {
+ AdMobAdsProvider.instance.showInterstitialAd(() {
+    adShown = true;
+    Get.offNamed(Routes.HOMEVIEW);
+  });
+
+  // Fallback: if ad not shown in 3 seconds, navigate anyway
+  Future.delayed(const Duration(seconds: 3), () {
+    if (!adShown) {
       Get.offNamed(Routes.HOMEVIEW);
-    });
+    }
+  });
   }
   // var tabIndex = 0.obs;
   // Rx<int> percent = 0.obs;
