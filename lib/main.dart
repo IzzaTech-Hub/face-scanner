@@ -21,7 +21,7 @@ Future<void> main() async {
     // DeviceOrientation.landscapeRight,
   ]);
 AdMobAdsProvider.instance.initialize();
-  // RemoteConfigService().initialize();
+  RemoteConfigService().initialize();
   runApp(const MyApp());
 }
 

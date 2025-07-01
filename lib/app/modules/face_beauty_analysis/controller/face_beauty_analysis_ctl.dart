@@ -82,6 +82,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
       // model: RCVariables.geminiModel,
       model: RCVariables.geminiModel,
       apiKey: RCVariables.GeminiAPIKey,
+      // model: 'gemini-2.0-flash',
+      // apiKey: 'AIzaSyAMqyKN3V21hNVLqYwpMBhVb2aZ2Yi0Jn4',
       generationConfig: GenerationConfig(
         temperature: 0.5,
         topK: 40,
@@ -143,6 +145,7 @@ class FaceBeautyAnalysisCtl extends GetxController {
 
     try {
       final response = await model.generateContent(content);
+
       log("Response ${response.text}");
       Map<String, dynamic> jsonMap = jsonDecode(response.text ?? '');
       log("jsonMap ${jsonMap}");
