@@ -1,0 +1,1 @@
+C:\IzzaTechHub\face-scanner\build\app\intermediates\cxx\RelWithDebInfo\3t5r1x5x\obj\x86_64

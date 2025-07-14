@@ -1,0 +1,2 @@
+C:/IzzaTechHub/face-scanner/android/app/.cxx/RelWithDebInfo/3t5r1x5x/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/IzzaTechHub/face-scanner/android/app/.cxx/RelWithDebInfo/3t5r1x5x/arm64-v8a/CMakeFiles/rebuild_cache.dir
